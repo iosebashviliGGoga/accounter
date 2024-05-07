@@ -1,95 +1,115 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+
+"use client"
+import Link from "next/link";
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <main>
+      <div className="container">
+        <section id="whatIsAccounter">
+          <div className="d-flex justify-content-between align-items-center">
+            <div>
+              <h2>რა არის ექაუნთერი?</h2>
+              <p>მცირე მეწარმეების საუკეთესო დამხმარე
+                დეკლარაციების ჩასაბარებლად</p>
+              <Link className="  btn--green" href={'/signIn'}>სცადე უფასოდ</Link>
+            </div>
+            <img src={`/assets/images/image 4.png`} alt="Accounter Image" />
+          </div>
+
+        </section>
+
+      </div>
+      <section className="bg-gray" id="howItWorks">
+        <div className="container">
+          <h2 className="text-center">როგორ მუშაობს?</h2>
+
+          <Tabs
+            defaultActiveKey="step1"
+            id="howItWorksTabs"
+            fill
           >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+            <Tab eventKey="step1" title="Step 1">
+              <div>
+                <img src={`/assets/images/image 9.png`} alt="" className='img-fluid' />
+                <p>
+                  რეგისტრირდები ჩვენს საიტზე და გვაკავშირებ შენს RS იუზერთან
+                </p>
+
+              </div>
+            </Tab>
+            <Tab eventKey="step2" title="Step 2">
+              <div>
+
+                <p>
+                  თვის განმავლობაში ბანკში ჩარიცხვები  რომ გექნება, უბრალოდ ამატებს ჩვენს შემოსაბლების ჟურნალში
+                </p>
+                <img src={`/assets/images/sqrini 1 1.png`} alt="" className='img-fluid' />
+              </div>
+            </Tab>
+            <Tab eventKey="step3" title="Step 3">
+              <div>
+                <img src={`/assets/images/sqrini 2 1.png`} alt="" className='img-fluid' />
+                <p>
+                  ექაუნთერს  RS-დან მოაქვს სალაროს იმნფორმაცია, ამატებს ჩარიცხვებს და ამუშავებს მონაცემებს დეკლარაციის ჩასაბარებლად
+                </p>
+
+              </div>
+            </Tab>
+            <Tab eventKey="step4" title="Step 4">
+              <div>
+
+                <p>
+
+                </p>
+                <img src={`/assets/images/sqrini 3 1.png`} alt="" className='img-fluid' />
+              </div>
+            </Tab>
+
+          </Tabs>
         </div>
-      </div>
+      </section>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
+      <section id="choosePackage">
+        <div className="container">
+          <h2 className="text-center">
+            აირჩიე სასურველი პაკეტი
           </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
+          <div className="choosePackage--cards">
+            <div className="choosePackage--card">
+              <h2>
+                7 ლარი <span>/ თვე</span>
+              </h2>
+              <ul>
+                <li>  <img src={`/assets/images/check.svg`} alt="" className='img-fluid' />   მცირე მეწარმის დეკლარაციის შევსება</li>
+                <li><img src={`/assets/images/check.svg`} alt="" className='img-fluid' />შემოსავლებისა და ხარჯების კონტროლი</li>
+                <li><img src={`/assets/images/check.svg`} alt="" className='img-fluid' />შემოსავლების ჟურნალის წარმოება</li>
+              </ul>
+              <div className="d-flex justify-content-center">
+                <Link className="  btn--green" href={'/signIn'}>სცადე უფასოდ</Link>
+              </div>
+            </div>
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+            <div className="choosePackage--card">
+              <h2>
+                14 ლარი <span>/ თვე</span>
+              </h2>
+              <ul>
+                <li><img src={`/assets/images/check.svg`} alt="" className='img-fluid' />მცირე მეწარმის დეკლარაციის შევსება</li>
+                <li><img src={`/assets/images/check.svg`} alt="" className='img-fluid' />შემოსავლებისა და ხარჯების კონტროლი</li>
+                <li><img src={`/assets/images/check.svg`} alt="" className='img-fluid' />შემოსავლების ჟურნალის წარმოება</li>
+                <li><img src={`/assets/images/check.svg`} alt="" className='img-fluid' />წინა თვეების დეკლარაციების დაზუსტება</li>
+              </ul>
+              <div className="d-flex justify-content-center">
+                <Link className="  btn--disabled" href={'/signIn'}>სცადე უფასოდ</Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }

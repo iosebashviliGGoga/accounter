@@ -1,0 +1,18 @@
+@font-face {
+    font-family: "Franklin Gothic Demi Cond";
+    src: url("../fonts/Franklin\ Gothic\ Demi\ Cond\ Regular.ttf");
+  
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  
+  @font-face {
+    font-family: "BPG Nino Mtavruli Bold";
+    src: url("../fonts/bpg_nino_mtavruli_bold.ttf");
+  
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }

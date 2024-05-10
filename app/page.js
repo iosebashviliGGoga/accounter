@@ -9,14 +9,14 @@ export default function Home() {
     <main>
       <div className="container">
         <section id="whatIsAccounter">
-          <div className="d-flex justify-content-between align-items-center">
+          <div className="d-flex justify-content-between align-items-center flex-lg-row flex-column">
             <div>
               <h2>რა არის ექაუნთერი?</h2>
               <p>მცირე მეწარმეების საუკეთესო დამხმარე
                 დეკლარაციების ჩასაბარებლად</p>
               <Link className="  btn--green" href={'/signIn'}>სცადე უფასოდ</Link>
             </div>
-            <img src={`/assets/images/image 4.png`} alt="Accounter Image" />
+            <img src={`/assets/images/image 4.png`} alt="Accounter Image" className="img-fluid"/>
           </div>
 
         </section>

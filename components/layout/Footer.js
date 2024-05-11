@@ -10,7 +10,7 @@ function Footer() {
                             <Link href={'/site#howItWorks'}>როგორ მუშაობს?</Link>
                         </li>
                         <li>
-                            <Link href={'/user'}>მომხმარებლის კაბინეტი</Link>
+                            <Link href={'/'}>მომხმარებლის კაბინეტი</Link>
                         </li>
                         <li>
                             <Link href={'/site#choosePackage'}>ფასები</Link>

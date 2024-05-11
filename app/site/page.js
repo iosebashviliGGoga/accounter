@@ -3,9 +3,7 @@
 import Link from "next/link";
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-import { useEffect } from "react";
-import { useRouter } from 'next/router';
-import Head from 'next/head'
+
 
 
 
@@ -110,7 +108,7 @@ export default function Home() {
                 <li><img src={`/assets/images/check.svg`} alt="" className='img-fluid' />წინა თვეების დეკლარაციების დაზუსტება</li>
               </ul>
               <div className="d-flex justify-content-center">
-                <Link className="  btn--disabled" href={'/signIn'}>მალე დაემატება</Link>
+                <Link className="  btn--disabled" href={'/'}>მალე დაემატება</Link>
               </div>
             </div>
           </div>

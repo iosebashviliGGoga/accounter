@@ -6,11 +6,11 @@ function Header() {
             <div className="container">
                 <nav className="nav align-items-end justify-content-between">
 
-                    <Link className="logo--text" href={'/'}>Accounter</Link>
+                    <Link className="logo--text" href={'/site'}>Accounter</Link>
                     <div className="header--inner">
                         <div className="d-flex gap-lg-5 gap-3">
-                            <Link className="header--outlined" href={'/#howItWorks'}>როგორ მუშაობს?</Link>
-                            <Link className="" href={'/#prices'}>ფასები</Link>
+                            <Link className="header--outlined" href={'/site#howItWorks'}>როგორ მუშაობს?</Link>
+                            <Link className="" href={'/site#choosePackage'}>ფასები</Link>
                         </div>
 
                         <div className="d-flex gap-lg-5 gap-3">

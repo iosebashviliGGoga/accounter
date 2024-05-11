@@ -7,19 +7,19 @@ function Footer() {
                     <Link className="logo--text" href={'/'}>Accounter</Link>
                     <ul>
                         <li>
-                            <Link href={'/'}>როგორ მუშაობს?</Link>
+                            <Link href={'/site#howItWorks'}>როგორ მუშაობს?</Link>
                         </li>
                         <li>
-                            <Link href={'/'}>მომხმარებლის კაბინეტი</Link>
+                            <Link href={'/user'}>მომხმარებლის კაბინეტი</Link>
                         </li>
                         <li>
-                            <Link href={'/'}>ფასები</Link>
+                            <Link href={'/site#choosePackage'}>ფასები</Link>
                         </li>
                         <li>
-                            <Link href={'/terms'}>წესები და პირობები</Link>
+                            <Link href={'/site/terms'}>წესები და პირობები</Link>
                         </li>
                         <li>
-                            <Link href={'/about'}>ჩვენს შესახებ</Link>
+                            <Link href={'/site/about'}>ჩვენს შესახებ</Link>
                         </li>
                     </ul>
                     <div className="footer--contact">

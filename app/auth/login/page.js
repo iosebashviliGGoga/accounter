@@ -17,7 +17,7 @@ export default function Page() {
           <input type="text" name="email" className="form-control" placeholder="ელ-ფოსტა" />
           <input type="text" name="password" className="form-control mb-4" placeholder="პაროლი" />
           <p>
-            <Link href="javascript:void(0)" className="toReset--link">
+            <Link href="" className="toReset--link">
               დაგავიწყდა პაროლი?
             </Link>
           </p>

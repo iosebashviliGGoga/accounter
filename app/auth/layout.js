@@ -1,6 +1,9 @@
 import Link from "next/link";
 
-
+export const metadata = {
+  title: "Accounter -ავტორიზაცია",
+  description: "",
+};
 export default function Layout({ children }) {
     return (
       <>

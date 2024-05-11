@@ -5,10 +5,10 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import { useEffect } from "react";
 import { useRouter } from 'next/router';
+import Head from 'next/head'
 
 
 
- 
 
 export default function Home() {
   return (
@@ -20,9 +20,9 @@ export default function Home() {
               <h2>რა არის ექაუნთერი?</h2>
               <p>მცირე მეწარმეების საუკეთესო დამხმარე
                 დეკლარაციების ჩასაბარებლად</p>
-              <Link className="  btn--green" href={'/signIn'}>სცადე უფასოდ</Link>
+              <Link className="  btn--green" href={'/auth/registration'}>სცადე უფასოდ</Link>
             </div>
-            <img src={`/assets/images/image 4.png`} alt="Accounter Image" className="img-fluid"/>
+            <img src={`/assets/images/image 4.png`} alt="Accounter Image" className="img-fluid" />
           </div>
 
         </section>
@@ -95,7 +95,7 @@ export default function Home() {
                 <li><img src={`/assets/images/check.svg`} alt="" className='img-fluid' />შემოსავლების ჟურნალის წარმოება</li>
               </ul>
               <div className="d-flex justify-content-center">
-                <Link className="  btn--green" href={'/signIn'}>სცადე უფასოდ</Link>
+                <Link className="  btn--green" href={'/auth/registration'}>სცადე უფასოდ</Link>
               </div>
             </div>
 

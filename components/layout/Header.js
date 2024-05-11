@@ -14,8 +14,8 @@ function Header() {
                         </div>
 
                         <div className="d-flex gap-lg-5 gap-3">
-                            <Link className=" btn--green" href={'/signIn'}>შესვლა</Link>
-                            <Link className="  btn--orange" href={'/signIn'}>სცადე უფასოდ</Link>
+                            <Link className=" btn--green" href={'/auth/login'}>შესვლა</Link>
+                            <Link className="  btn--orange" href={'/auth/registration'}>სცადე უფასოდ</Link>
                         </div>
                     </div>
 

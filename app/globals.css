@@ -330,3 +330,129 @@ main.about .content{
   float: right;
   margin-left: 98px;
 }
+
+
+/* authentication  start */
+section.auth{
+  min-height: 650px;
+  height: 100vh;
+  position: relative;
+  /* padding-top: 191px;
+  padding-bottom: 50px; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.auth--top{
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  font-family: "Franklin Gothic Demi Cond";
+  background-color: var(--main-orange);
+  font-size: 60px;
+  color: white !important;
+  width: 517px;
+  height: 462px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  transform: translate(-143px,-206px);
+}
+.auth--top span{
+  position: absolute;
+  bottom: 168px;
+  right: 100px;
+}
+.auth--bottom{
+  position: absolute;
+  width: 297px;
+  height: 308px;
+  border-radius: 50%;
+}
+.auth--bottom__orange{
+  background-color: var(--main-orange);
+  bottom: 0;
+  right: 0;
+  transform: translate(80px,150px);
+}
+.auth--bottom__green{
+  background-color: var(--main-green);
+  bottom: 20px;
+  right: 0;
+  transform: translateX(170px);
+}
+.auth--form{
+  margin-inline: auto;
+  border: 3px solid rgba(7, 99, 93, 0.25);
+  border-radius: 20px;
+  padding: 80px 60px 45px 60px;
+  width: 584px;
+
+  min-height: 600px;
+}
+.auth--form__header{
+  font-size: 35px;
+  text-align: center;
+  margin-bottom: 40px;
+  position: relative;
+}
+.error-password{
+  color: #E18B83;
+  font-size: 20px;
+  position: absolute;
+  width: 100%;
+  bottom: -9px;
+  left: 50%;
+  transform: translate(-50%,20px);
+}
+.auth--form .form-control{
+  border: 3px solid rgba(7, 99, 93, 0.25);
+  border-radius: 20px;
+  font-size: 25px;
+  color: var(--main-green);
+  margin-bottom: 35px;
+  padding-top: 10px;
+
+}
+.auth--form .form-control::placeholder{
+  color: #D9D9D9;
+}
+.toReset--link{
+  margin-bottom:17px;
+  color: #8A8888 !important;
+  font-size: 20px;
+}
+.auth--submit__btn{
+  width: 100%;
+  background-color: var(--main-orange);
+  color: white !important;
+  padding-block: 15px 12px;
+  border-radius: 25px;
+  transition: 0.3s;
+}
+.auth--submit__btn:hover{
+  color: var(--main-green) !important;
+
+}
+
+.authForm--bottom{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+
+}
+.authForm--bottom img{
+  cursor: pointer;
+}
+.auth--form__messageSend .auth--form__header{
+  font-size: 30px;
+}
+
+.auth--form__registration{
+  padding-block: 27px 40px;
+  min-height: unset;
+}
+/* authentication  end */

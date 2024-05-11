@@ -4,7 +4,7 @@ function Footer() {
         <footer>
             <div className="container">
                 <nav>
-                    <Link className="logo--text" href={'/'}>Accounter</Link>
+                    <Link className="logo--text" href={'/site'}>Accounter</Link>
                     <ul>
                         <li>
                             <Link href={'/site#howItWorks'}>როგორ მუშაობს?</Link>

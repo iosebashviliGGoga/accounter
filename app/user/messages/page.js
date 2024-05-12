@@ -16,7 +16,7 @@ export default function Page() {
 
         <div className="userCard--wrapper">
             <div className="userCard px-2">
-                <div className="w-100 h-100">
+               
                     <div className="d-flex justify-content-center">
                         <div className="userCard--searchinput">
                             <img src="/assets/images/search.svg" alt="" />
@@ -108,7 +108,7 @@ export default function Page() {
                             <p className="message--date">26-03-2023</p>
                         </li>
                     </ul>
-                </div>
+                
             </div>
         </div>
 

@@ -8,7 +8,7 @@ export const metadata = {
 export default function Layout({ children }) {
   return (
     <>
-      <div >
+      <div className="messages">
             {children}
       </div>
     </>

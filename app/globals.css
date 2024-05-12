@@ -676,7 +676,12 @@ section.user {
   top: 50%;
   transform: translateY(-50%);
 }
+.messages .userCard{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
+}
 .message--container {
   display: flex;
   flex-direction: column;

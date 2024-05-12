@@ -2,7 +2,7 @@ import Link from "next/link";
 
 function Header() {
     return (
-        <header>
+        <header className="siteHeader">
             <div className="container">
                 <nav className="nav align-items-end justify-content-between">
 

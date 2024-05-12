@@ -1,7 +1,12 @@
+"use client"
 import Link from "next/link";
-
+import { useRouter } from 'next/navigation';
 export default function Page() {
+    const router = useRouter();
 
+    const redirectToUserInfo = () => {
+        router.push('/user');
+    };
     return (
         <div className="container">
 
@@ -29,7 +34,7 @@ export default function Page() {
                         </p>
                     </div>
                     <div className="mt-5 mb-4">
-                        <button type="submit" className="auth--submit__btn">
+                        <button type="submit" className="auth--submit__btn" onClick={redirectToUserInfo}>
                             რეგისტრაცია
                         </button>
                     </div>

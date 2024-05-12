@@ -14,99 +14,101 @@ export default function Page() {
 
     return <>
 
-        <div className="userCard px-2">
-            <div className="w-100 h-100">
-                <div className="d-flex justify-content-center">
-                    <div className="userCard--searchinput">
-                        <img src="/assets/images/search.svg" alt="" />
-                        <input type="text" className="form-control" placeholder="ძიება შეტყობინებებში" />
+        <div className="userCard--wrapper">
+            <div className="userCard px-2">
+                <div className="w-100 h-100">
+                    <div className="d-flex justify-content-center">
+                        <div className="userCard--searchinput">
+                            <img src="/assets/images/search.svg" alt="" />
+                            <input type="text" className="form-control" placeholder="ძიება შეტყობინებებში" />
+                        </div>
                     </div>
+                    <ul className="message--container">
+                        <li className="message--item" onClick={handleShow}>
+                            <h4>სავალდებულო შეტყობინება</h4>
+                            <div className="message--from">
+                                <img src="/assets/images/error.svg" alt="" />
+                                <span>RS-ის შეტყობინება</span></div>
+                            <p className="message--date">26-03-2023</p>
+                        </li>
+                        <li className="message--item" onClick={handleShow}>
+                            <h4>სავალდებულო შეტყობინება</h4>
+                            <div className="message--from" style={{ opacity: "0" }}>
+                                <img src="/assets/images/error.svg" alt="" />
+                                <span>RS-ის შეტყობინება</span></div>
+                            <p className="message--date">26-03-2023</p>
+                        </li>
+                        <li className="message--item" onClick={handleShow}>
+                            <h4>სავალდებულო შეტყობინება</h4>
+                            <div className="message--from">
+                                <img src="/assets/images/error.svg" alt="" />
+                                <span>RS-ის შეტყობინება</span></div>
+                            <p className="message--date">26-03-2023</p>
+                        </li>
+                        <li className="message--item" onClick={handleShow}>
+                            <h4>სავალდებულო შეტყობინება</h4>
+                            <div className="message--from" style={{ opacity: "0" }}>
+                                <img src="/assets/images/error.svg" alt="" />
+                                <span>RS-ის შეტყობინება</span></div>
+                            <p className="message--date">26-03-2023</p>
+                        </li>
+                        <li className="message--item" onClick={handleShow}>
+                            <h4>სავალდებულო შეტყობინება</h4>
+                            <div className="message--from">
+                                <img src="/assets/images/error.svg" alt="" />
+                                <span>RS-ის შეტყობინება</span></div>
+                            <p className="message--date">26-03-2023</p>
+                        </li>
+                        <li className="message--item" onClick={handleShow}>
+                            <h4>სავალდებულო შეტყობინება</h4>
+                            <div className="message--from" >
+                                <img src="/assets/images/error.svg" alt="" />
+                                <span>RS-ის შეტყობინება</span></div>
+                            <p className="message--date">26-03-2023</p>
+                        </li>
+                        <li className="message--item" onClick={handleShow}>
+                            <h4>სავალდებულო შეტყობინება</h4>
+                            <div className="message--from">
+                                <img src="/assets/images/error.svg" alt="" />
+                                <span>RS-ის შეტყობინება</span></div>
+                            <p className="message--date">26-03-2023</p>
+                        </li>
+                        <li className="message--item" onClick={handleShow}>
+                            <h4>სავალდებულო შეტყობინება</h4>
+                            <div className="message--from">
+                                <img src="/assets/images/error.svg" alt="" />
+                                <span>RS-ის შეტყობინება</span></div>
+                            <p className="message--date">26-03-2023</p>
+                        </li>
+                        <li className="message--item" onClick={handleShow}>
+                            <h4>სავალდებულო შეტყობინება</h4>
+                            <div className="message--from">
+                                <img src="/assets/images/error.svg" alt="" />
+                                <span>RS-ის შეტყობინება</span></div>
+                            <p className="message--date">26-03-2023</p>
+                        </li>
+                        <li className="message--item" onClick={handleShow}>
+                            <h4>სავალდებულო შეტყობინება</h4>
+                            <div className="message--from">
+                                <img src="/assets/images/error.svg" alt="" />
+                                <span>RS-ის შეტყობინება</span></div>
+                            <p className="message--date">26-03-2023</p>
+                        </li>
+                        <li className="message--item" onClick={handleShow}>
+                            <h4>სავალდებულო შეტყობინება</h4>
+                            <div className="message--from">
+                                <img src="/assets/images/error.svg" alt="" />
+                                <span>RS-ის შეტყობინება</span></div>
+                            <p className="message--date">26-03-2023</p>
+                        </li> <li className="message--item" onClick={handleShow}>
+                            <h4>სავალდებულო შეტყობინება</h4>
+                            <div className="message--from">
+                                <img src="/assets/images/error.svg" alt="" />
+                                <span>RS-ის შეტყობინება</span></div>
+                            <p className="message--date">26-03-2023</p>
+                        </li>
+                    </ul>
                 </div>
-                <ul className="message--container">
-                    <li className="message--item" onClick={handleShow}>
-                        <h4>სავალდებულო შეტყობინება</h4>
-                        <div className="message--from">
-                            <img src="/assets/images/error.svg" alt="" />
-                            <span>RS-ის შეტყობინება</span></div>
-                        <p className="message--date">26-03-2023</p>
-                    </li>
-                    <li className="message--item" onClick={handleShow}>
-                        <h4>სავალდებულო შეტყობინება</h4>
-                        <div className="message--from"  style={{opacity: "0"}}>
-                            <img src="/assets/images/error.svg" alt="" />
-                            <span>RS-ის შეტყობინება</span></div>
-                        <p className="message--date">26-03-2023</p>
-                    </li>
-                    <li className="message--item" onClick={handleShow}>
-                        <h4>სავალდებულო შეტყობინება</h4>
-                        <div className="message--from">
-                            <img src="/assets/images/error.svg" alt="" />
-                            <span>RS-ის შეტყობინება</span></div>
-                        <p className="message--date">26-03-2023</p>
-                    </li>
-                    <li className="message--item" onClick={handleShow}>
-                        <h4>სავალდებულო შეტყობინება</h4>
-                        <div className="message--from" style={{opacity: "0"}}>
-                            <img src="/assets/images/error.svg" alt="" />
-                            <span>RS-ის შეტყობინება</span></div>
-                        <p className="message--date">26-03-2023</p>
-                    </li>
-                    <li className="message--item" onClick={handleShow}>
-                        <h4>სავალდებულო შეტყობინება</h4>
-                        <div className="message--from">
-                            <img src="/assets/images/error.svg" alt="" />
-                            <span>RS-ის შეტყობინება</span></div>
-                        <p className="message--date">26-03-2023</p>
-                    </li>
-                    <li className="message--item" onClick={handleShow}>
-                        <h4>სავალდებულო შეტყობინება</h4>
-                        <div className="message--from" >
-                            <img src="/assets/images/error.svg" alt="" />
-                            <span>RS-ის შეტყობინება</span></div>
-                        <p className="message--date">26-03-2023</p>
-                    </li>
-                    <li className="message--item" onClick={handleShow}>
-                        <h4>სავალდებულო შეტყობინება</h4>
-                        <div className="message--from">
-                            <img src="/assets/images/error.svg" alt="" />
-                            <span>RS-ის შეტყობინება</span></div>
-                        <p className="message--date">26-03-2023</p>
-                    </li>
-                    <li className="message--item" onClick={handleShow}>
-                        <h4>სავალდებულო შეტყობინება</h4>
-                        <div className="message--from">
-                            <img src="/assets/images/error.svg" alt="" />
-                            <span>RS-ის შეტყობინება</span></div>
-                        <p className="message--date">26-03-2023</p>
-                    </li>
-                    <li className="message--item" onClick={handleShow}>
-                        <h4>სავალდებულო შეტყობინება</h4>
-                        <div className="message--from">
-                            <img src="/assets/images/error.svg" alt="" />
-                            <span>RS-ის შეტყობინება</span></div>
-                        <p className="message--date">26-03-2023</p>
-                    </li>
-                    <li className="message--item" onClick={handleShow}>
-                        <h4>სავალდებულო შეტყობინება</h4>
-                        <div className="message--from">
-                            <img src="/assets/images/error.svg" alt="" />
-                            <span>RS-ის შეტყობინება</span></div>
-                        <p className="message--date">26-03-2023</p>
-                    </li>
-                    <li className="message--item" onClick={handleShow}>
-                        <h4>სავალდებულო შეტყობინება</h4>
-                        <div className="message--from">
-                            <img src="/assets/images/error.svg" alt="" />
-                            <span>RS-ის შეტყობინება</span></div>
-                        <p className="message--date">26-03-2023</p>
-                    </li> <li className="message--item" onClick={handleShow}>
-                        <h4>სავალდებულო შეტყობინება</h4>
-                        <div className="message--from">
-                            <img src="/assets/images/error.svg" alt="" />
-                            <span>RS-ის შეტყობინება</span></div>
-                        <p className="message--date">26-03-2023</p>
-                    </li>
-                </ul>
             </div>
         </div>
 

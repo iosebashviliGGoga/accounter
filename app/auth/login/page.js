@@ -5,7 +5,8 @@ import { useRouter } from 'next/navigation';
 export default function Page() {
   const router = useRouter();
 
-  const redirectToUserInfo = () => {
+  const redirectToUserInfo = (e) => {
+    e.preventDefault()
       router.push('/user');
   };
 

@@ -49,3 +49,28 @@
         display: none;
     }
 }
+
+
+/* @media screen and (max-height: 800px){
+    .profile .form-control,
+    .profile .MuiFilledInput-input
+   {
+        padding-top: 5px;
+        padding-bottom: 3px;
+        font-size: 15px;
+    }
+    #cardinput--wrapper div{
+        font-size: 15px;
+        height: 30px;
+    }
+    .profile--inputs,
+    .profile .form-label{
+        font-size: 12px;
+    }
+    .profile--initals{
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+
+} */

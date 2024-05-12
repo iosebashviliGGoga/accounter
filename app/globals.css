@@ -679,8 +679,6 @@ section.user {
 .messages .userCard{
     display: flex;
     flex-direction: column;
-    justify-content: center;
-
 }
 .message--container {
   display: flex;

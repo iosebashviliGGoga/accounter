@@ -13,7 +13,7 @@ export default function Home() {
     <main>
       <div className="container">
         <section id="whatIsAccounter">
-          <div className="d-flex justify-content-between align-items-center flex-lg-row flex-column">
+          <div className="d-flex justify-content-between align-items-center flex-lg-row flex-column-reverse">
             <div>
               <h2>რა არის ექაუნთერი?</h2>
               <p>მცირე მეწარმეების საუკეთესო დამხმარე

@@ -1,0 +1,10 @@
+import React from 'react';
+
+const CustomDropdownIcon = (props) => (
+    <svg width="41" height="28" viewBox="0 0 41 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20.5912 27.3543L0.215594 1.34677L40.25 0.80084L20.5912 27.3543Z" fill="#FF7A30" />
+    </svg>
+
+);
+
+export default CustomDropdownIcon;

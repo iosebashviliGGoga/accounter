@@ -1,67 +1,80 @@
 @media screen and (max-width: 992px) {
-    body{
+    body {
         font-size: 23px;
     }
-    .container{
+
+    .container {
         padding-inline: 20px;
         max-width: 100%;
     }
-    .page--title{
+
+    .page--title {
         margin-bottom: 30px;
     }
 
-    .siteHeader{
+    .siteHeader {
         height: 93px;
         padding-block: 30px;
         margin-bottom: 20px;
     }
-    .logo--text{
+
+    .logo--text {
         font-size: 28px;
     }
-    #whatIsAccounter h2{
+
+    #whatIsAccounter h2 {
         margin-top: 15px;
     }
-    #howItWorks,#choosePackage{
+
+    #howItWorks,
+    #choosePackage {
         padding-block: 30px;
     }
-    #howItWorksTabs{
+
+    #howItWorksTabs {
         gap: 15px;
     }
-    #howItWorks .tab-pane > div{
+
+    #howItWorks .tab-pane>div {
         flex-direction: column;
         gap: 20px !important;
     }
-    .choosePackage--cards{
+
+    .choosePackage--cards {
         margin-top: 20px;
         gap: 30px;
         flex-direction: column;
     }
-    .choosePackage--card{
+
+    .choosePackage--card {
         padding: 25px 20px;
     }
 
 
 
-    .about--right{
+    .about--right {
         max-width: 100%;
         margin-left: 0;
         margin-bottom: 20px;
     }
-    main.about .content{
+
+    main.about .content {
         font-size: 20px;
     }
 
 
-    footer nav *:not(.logo--text){
+    footer nav *:not(.logo--text) {
         display: none;
     }
-    .header--inner{
+
+    .header--inner {
         display: none;
     }
 }
 
 
-@media screen and (max-height: 800px){
+@media screen and (max-height: 800px) {
+
     /* .profile .form-control,
     .profile .MuiFilledInput-input
    {
@@ -83,12 +96,17 @@
         font-size: 20px;
     } */
     .profile .userCard,
-    .messages .userCard{
-       
-        justify-content: start;
-      }
+    .messages .userCard {
+
+        justify-content: start !important;
+    }
+
+    .step7,
+    .step7 .d-flex {
+        justify-content: start !important;
+    }
+    .step7{
+        padding-top: 20px;
+    }
 
 }
-
-
-

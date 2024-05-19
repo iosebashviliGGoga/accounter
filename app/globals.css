@@ -918,10 +918,11 @@ section.user {
 
 
 
-.checkbox-wrapper{
+.checkbox-wrapper {
   display: flex;
   justify-content: center;
 }
+
 .checkbox-wrapper input {
   padding: 0;
   height: initial;
@@ -937,7 +938,8 @@ section.user {
   font-size: 20px;
   color: black;
 }
-.checkbox-wrapper label span{
+
+.checkbox-wrapper label span {
   position: relative;
   top: 3px;
   user-select: none;
@@ -970,23 +972,119 @@ section.user {
   background-repeat: no-repeat;
 }
 
-.steps--error{
+.steps--error {
   position: absolute;
   bottom: -35px;
   left: 0;
   color: #DA9A95;
   font-size: 18px;
 }
+
 .step1 .checkbox-wrapper,
 .step2 .checkbox-wrapper,
-.step3 .checkbox-wrapper{
+.step3 .checkbox-wrapper {
   margin-top: 50px;
 }
-.step--success{
+
+.step--success {
   margin-bottom: 100px;
   text-align: center;
   font-size: 40px;
 }
+
+.resend--code {
+  margin-top: 35px;
+  color: #9C9C9C;
+  font-size: 22px;
+}
+
+.input--container .form-control {
+  max-width: 100%;
+}
+
+.code--error {
+  top: 0;
+  left: 50%;
+  bottom: unset;
+  transform: translate(-50%, -100%);
+}
+
+.userCard--customselect {
+  width: 457px;
+  height: 56px;
+}
+.userCard--customselect .MuiFormControl-root label{
+  color: rgba(7, 99, 93, 0.70) !important;
+  font-size: 22px !important;
+  top: -2px;
+  font-family: "BPG Nino Mtavruli Bold" !important;
+}
+.userCard--customselect .MuiInputBase-root{
+  font-family: "BPG Nino Mtavruli Bold" !important;
+  color: rgba(7, 99, 93, 0.70) !important;
+}
+.userCard--customselect .MuiInputBase-root:hover .MuiOutlinedInput-notchedOutline {
+  border: 3px solid rgba(7, 99, 93, 0.25);
+}
+
+.userCard--customselect .MuiOutlinedInput-notchedOutline {
+  border: 3px solid rgba(7, 99, 93, 0.25);
+  border-radius: 20px;
+  font-size: 25px;
+  color: var(--main-green);
+}
+.userCard--customselect svg{
+  margin-right: 30px;
+}
+.MuiInputBase-input[aria-expanded="false"] +  .custom-arrow-icon {
+  transform: rotate(180deg);
+}
+.customSelects--container{
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin-bottom: 35px;
+}
+
+
+.checkboxes--container{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 35px;
+  column-gap: 100px;
+  padding-inline:100px;
+  margin-bottom: 80px;
+}
+
+.checkboxes--container .checkbox-wrapper{
+  justify-content: flex-start;
+
+}
+
+.checkboxes--container .checkbox-wrapper label{
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  font-size: 18px;
+  color: var(--main-green);
+  max-height: 40px;
+}
+
+
+
+.checkboxes--container .checkbox-wrapper label::before{
+  flex-shrink: 0;
+}
+
+
+
+
+
+
+
+
+
 
 .loader--container {
   margin-top: 120px;
@@ -1029,28 +1127,37 @@ section.user {
 }
 
 @keyframes colorChange {
-  0%, 100% {
-      fill: #FF6D1B;
+
+  0%,
+  100% {
+    fill: #FF6D1B;
   }
+
   12.5% {
-      fill: #FF9052;
+    fill: #FF9052;
   }
+
   25% {
-      fill: #FD7224;
+    fill: #FD7224;
   }
+
   37.5% {
-      fill: #FF833D;
+    fill: #FF833D;
   }
+
   50% {
-      fill: #FF7F37;
+    fill: #FF7F37;
   }
+
   62.5% {
-      fill: #FDB58D;
+    fill: #FDB58D;
   }
+
   75% {
-      fill: #FC9D68;
+    fill: #FC9D68;
   }
+
   87.5% {
-      fill: #FFCDB0;
+    fill: #FFCDB0;
   }
 }

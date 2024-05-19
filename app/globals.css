@@ -52,7 +52,7 @@ body {
   font-size: 30px;
   line-height: 1.1;
   font-family: "BPG Nino Mtavruli Bold" !important;
-  
+
 }
 
 .container {
@@ -476,8 +476,8 @@ section.auth {
 }
 
 .auth--submit__btn:hover {
-    background-color: white;
-    color: var(--main-orange) !important;
+  background-color: white;
+  color: var(--main-orange) !important;
 
 }
 
@@ -597,7 +597,8 @@ section.user {
 .userHeader--name span {
   margin-top: 3px;
 }
-.userCard--wrapper{
+
+.userCard--wrapper {
   margin: 40px 35px 40px 35px;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   background-color: #F6F6F6;
@@ -610,8 +611,8 @@ section.user {
   height: calc(100vh - 107px - 40px - 40px - 48px);
   min-height: 460px;
   overflow-y: auto;
- 
-  
+
+
 }
 
 .userCard--header {
@@ -678,10 +679,12 @@ section.user {
   top: 50%;
   transform: translateY(-50%);
 }
-.messages .userCard{
-    display: flex;
-    flex-direction: column;
+
+.messages .userCard {
+  display: flex;
+  flex-direction: column;
 }
+
 .message--container {
   display: flex;
   flex-direction: column;
@@ -699,36 +702,41 @@ section.user {
   cursor: pointer;
   font-size: 20px;
 }
-.message--from{
+
+.message--from {
   display: flex;
   align-items: center;
   gap: 17px;
   font-size: 18px;
   color: #E18B83;
-  
+
 }
-.message--date{
+
+.message--date {
   color: black;
   font-size: 18px;
 }
+
 .message--from span,
 .message--item h4,
-.message--date{
+.message--date {
   margin-top: 2px;
 }
 
-.message--modal .modal-dialog{
+.message--modal .modal-dialog {
   width: 723px;
   max-width: 100%;
 
 
 }
-.message--modal .modal-content{
+
+.message--modal .modal-content {
   border-radius: 46px;
   padding: 38px 50px;
   position: relative;
 }
-.message--modal .modal-header{
+
+.message--modal .modal-header {
   font-size: 22px;
   text-align: center;
   color: var(--main-orange);
@@ -737,21 +745,25 @@ section.user {
 
   border: none;
 }
-.message--modal .modal-body{
+
+.message--modal .modal-body {
   padding: 0;
   font-size: 22px;
   text-align: center;
 }
-.message--modal  .modal-title{
+
+.message--modal .modal-title {
   width: 100%;
 }
-.message--closeBtn{
+
+.message--closeBtn {
   cursor: pointer;
   position: absolute;
   top: 54px;
   right: 54px;
 }
-.message--modal .modal-body p{
+
+.message--modal .modal-body p {
   margin-bottom: 1rem;
 }
 
@@ -769,11 +781,11 @@ section.user {
 ::-webkit-scrollbar-thumb {
   -webkit-border-radius: 10px;
   border-radius: 10px;
-  background: #6d6d6d; 
-} 
+  background: #6d6d6d;
+}
 
 
-.profile--header{
+.profile--header {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -782,11 +794,13 @@ section.user {
   color: black;
 
 }
-.profile--header h2{
+
+.profile--header h2 {
   margin-top: 5px;
   font-size: 20px;
 }
-.profile--initals{
+
+.profile--initals {
   width: 57px;
   height: 57px;
   display: grid;
@@ -794,10 +808,12 @@ section.user {
   background-color: #D9D9D9;
   border-radius: 50%;
 }
-.profile--initals span{
+
+.profile--initals span {
   margin-top: 8px;
 }
-.profile--inputs{
+
+.profile--inputs {
   padding-inline: 90px;
   font-size: 14px;
   display: grid;
@@ -807,7 +823,7 @@ section.user {
   /* row-gap: 20px; */
 }
 
-.profile .form-control{
+.profile .form-control {
   font-size: 18px;
   border-radius: 12px;
   border: none;
@@ -815,28 +831,32 @@ section.user {
   max-width: 100%;
   padding-left: 20px;
 }
-.profile .form-label{
+
+.profile .form-label {
   color: #B0D6D3;
   font-size: 14px;
   margin-bottom: 5px;
 }
-.profile .MuiFormControl-root{
+
+.profile .MuiFormControl-root {
   display: flex;
   background-color: transparent;
   border-bottom: none;
   border-radius: 12px;
   overflow: hidden;
 }
-.profile .MuiInputBase-root{
+
+.profile .MuiInputBase-root {
   background-color: white;
   border-bottom: none;
 }
+
 .profile .MuiInputBase-root::after,
-.profile .MuiInputBase-root::before{
+.profile .MuiInputBase-root::before {
   display: none;
 }
-.profile .MuiFilledInput-input
-{
+
+.profile .MuiFilledInput-input {
   display: block;
   padding-top: 10px;
   padding-bottom: 7px;
@@ -845,24 +865,28 @@ section.user {
   border-radius: 12px;
   font-family: "BPG Nino Mtavruli Bold" !important;
 }
-#cardinput--wrapper{
+
+#cardinput--wrapper {
   display: block;
   font-size: 18px;
   color: var(--main-green);
   border-radius: 12px;
   font-family: "BPG Nino Mtavruli Bold" !important;
 }
-#cardinput--wrapper div{
+
+#cardinput--wrapper div {
   border: none;
   box-shadow: none;
   height: 43px;
   border-radius: 12px;
 
 }
-.profile .MuiSvgIcon-root{
+
+.profile .MuiSvgIcon-root {
   fill: #9C9C9C;
 }
-.cardinput--delete{
+
+.cardinput--delete {
   display: flex;
   align-items: center;
   gap: 2px;
@@ -870,25 +894,163 @@ section.user {
   font-size: 16px;
   margin-top: 24px;
   cursor: pointer;
-  
+
 }
-.cardinput--delete span{
+
+.cardinput--delete span {
   margin-top: 5px;
 }
 
-.profile .userCard{
+.profile .userCard {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.profile--submitWrapper{
+.profile--submitWrapper {
   padding-inline: 90px;
   margin-top: 70px;
   display: flex;
   justify-content: flex-end;
 }
+
 /* user fill info end */
 
 
 
+.checkbox-wrapper{
+  display: flex;
+  justify-content: center;
+}
+.checkbox-wrapper input {
+  padding: 0;
+  height: initial;
+  width: initial;
+  margin-bottom: 0;
+  display: none;
+  cursor: pointer;
+}
+
+.checkbox-wrapper label {
+  position: relative;
+  cursor: pointer;
+  font-size: 20px;
+  color: black;
+}
+.checkbox-wrapper label span{
+  position: relative;
+  top: 3px;
+  user-select: none;
+}
+
+.checkbox-wrapper label:before {
+  content: "";
+  -webkit-appearance: none;
+  background-color: #D9D9D9;
+  border: 3px solid var(--main-green);
+  border-radius: 10px;
+  width: 49px;
+  height: 36px;
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.checkbox-wrapper input:checked+label:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 5px;
+  left: 8px;
+  width: 49px;
+  height: 36px;
+  background-image: url('/assets/images/check2.svg');
+  background-repeat: no-repeat;
+}
+
+.steps--error{
+  position: absolute;
+  bottom: -35px;
+  left: 0;
+  color: #DA9A95;
+  font-size: 18px;
+}
+.step1 .checkbox-wrapper,
+.step2 .checkbox-wrapper,
+.step3 .checkbox-wrapper{
+  margin-top: 50px;
+}
+.step--success{
+  margin-bottom: 100px;
+  text-align: center;
+  font-size: 40px;
+}
+
+.loader--container {
+  margin-top: 120px;
+}
+
+.loader--container svg rect {
+  animation: colorChange 1.5s linear infinite;
+}
+
+.loader--container svg rect:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.loader--container svg rect:nth-child(2) {
+  animation-delay: 0.1875s;
+}
+
+.loader--container svg rect:nth-child(3) {
+  animation-delay: 0.375s;
+}
+
+.loader--container svg rect:nth-child(4) {
+  animation-delay: 0.5625s;
+}
+
+.loader--container svg rect:nth-child(5) {
+  animation-delay: 0.75s;
+}
+
+.loader--container svg rect:nth-child(6) {
+  animation-delay: 0.9375s;
+}
+
+.loader--container svg rect:nth-child(7) {
+  animation-delay: 1.125s;
+}
+
+.loader--container svg rect:nth-child(8) {
+  animation-delay: 1.3125s;
+}
+
+@keyframes colorChange {
+  0%, 100% {
+      fill: #FF6D1B;
+  }
+  12.5% {
+      fill: #FF9052;
+  }
+  25% {
+      fill: #FD7224;
+  }
+  37.5% {
+      fill: #FF833D;
+  }
+  50% {
+      fill: #FF7F37;
+  }
+  62.5% {
+      fill: #FDB58D;
+  }
+  75% {
+      fill: #FC9D68;
+  }
+  87.5% {
+      fill: #FFCDB0;
+  }
+}

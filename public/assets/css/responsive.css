@@ -1,3 +1,9 @@
+@media screen and (min-width: 992px) {
+    .header--inner {
+        display: flex !important;
+    }
+}
+
 @media screen and (max-width: 992px) {
     body {
         font-size: 23px;
@@ -63,12 +69,100 @@
     }
 
 
-    footer nav *:not(.logo--text) {
+    
+
+    .header--inner {
+        position: absolute;
+        left: 0;
+        top: 93px;
+        width: 100%;
+        padding: 20px;
+        background-color: rgba(7, 99, 93, 0.90);
+        display: block;
+        color: var(--main-orange);
+    }
+
+    .header--inner .btn--orange {
+        margin-top: 20px;
+        width: 100%;
+    }
+
+    .btn--green {
+        width: auto;
+        padding: 7px 25px 2px 25px;
+    }
+
+    .navbar-toggler {
+        line-height: 0;
+    }
+
+    header .nav {
+        align-items: center !important;
+    }
+
+    .auth--top span {
         display: none;
     }
 
-    .header--inner {
-        display: none;
+    .auth--top {
+        width: 297px;
+        height: 308px;
+    }
+    .auth--bottom__green{
+        bottom: -240px;
+        z-index: -2;
+    }
+    .auth--bottom__orange{
+        transform: none;
+        right: -260px;
+        bottom: -70px;
+        z-index: -1;
+    }
+    .auth--form{
+        width: 100%;
+        padding: 40px 30px 70px 30px;
+        min-height: unset;
+    }
+    section.auth{
+        height: auto;
+        min-height: 100vh;
+    }
+    .auth--form__header{
+        font-size: 32px;
+    }
+    .form-control{
+        font-size: 23px;
+    }
+    .auth .container{
+        padding-inline: 40px;
+    }
+    footer{
+        margin-top: 80px;
+        padding-inline: 20px;
+    }
+    footer nav{
+        flex-direction: column;
+        gap: 20px;
+    }
+    footer ul{
+        column-gap: 50px;
+        flex-direction: column;
+    }
+    footer ul li{
+        flex-basis: unset;
+    }
+    .footer--contact h2{
+        font-size: 20px;
+    }
+    .footer--contact a{
+        font-size: 15px;
+    }
+    #whatIsAccounter{
+        margin-bottom: 30px;
+    }
+    #howItWorksTabs{
+        margin-block: 20px;
+        gap: 20px;
     }
 }
 
@@ -105,7 +199,8 @@
     .step7 .d-flex {
         justify-content: start !important;
     }
-    .step7{
+
+    .step7 {
         padding-top: 20px;
     }
 

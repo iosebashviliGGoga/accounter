@@ -328,7 +328,7 @@ export default function Page() {
                 )}
 
                 {currentStep === 8 && (
-                    <div className="w-100 h-100 d-flex justify-content-center align-items-center step7">
+                    <div className="w-100 h-100 d-flex justify-content-center align-items-center ">
                         <div>
                             <div className="d-flex flex-column align-items-center">
                                 <h2 className='text-center mb-4'>ობიექტების ჩამონათვალი :</h2>

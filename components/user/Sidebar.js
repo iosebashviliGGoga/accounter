@@ -1,25 +1,30 @@
 "use client"
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { usePathname, useSearchParams } from 'next/navigation'
 import Link from "next/link";
 function Sidebar() {
     const pathname = usePathname()
+    const [isActive, setIsActive] = useState(false);
+
+    const handleSidebarToggle = () => {
+        setIsActive(!isActive);
+    };
 
     useEffect(() => {
 
-     
+
 
         console.log(pathname)
         // You can now use the current URL
         // ...
-      }, [pathname])
+    }, [pathname])
     return <>
-        <nav className="userSidebar">
+        <nav className={`userSidebar ${isActive ? 'userSidebar--active' : ''}`} onClick={handleSidebarToggle}>
 
             <Link className="logo--text" href={'/site'}>Accounter</Link>
+            <img src="/assets/images/sidebarButton.svg" alt="" className='sideBarToggler d-lg-none' onClick={handleSidebarToggle} />
 
-
-            <ul>    
+            <ul>
                 <li >
                     <Link href={'/user'} className={pathname == '/user' ? "active" : ""}>შემოსავლების ჟურნალი</Link>
                 </li>

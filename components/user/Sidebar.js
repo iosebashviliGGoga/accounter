@@ -7,7 +7,7 @@ function Sidebar() {
     const [isActive, setIsActive] = useState(false);
 
     const handleSidebarToggle = () => {
-        setIsActive(!isActive);
+        document.querySelector('.userSidebar').classList.remove('userSidebar--active')
     };
 
     useEffect(() => {
@@ -19,20 +19,20 @@ function Sidebar() {
         // ...
     }, [pathname])
     return <>
-        <nav className={`userSidebar ${isActive ? 'userSidebar--active' : ''}`} onClick={handleSidebarToggle}>
+        <nav className={`userSidebar ${isActive ? 'userSidebar--active' : ''}`} >
 
             <Link className="logo--text" href={'/site'}>Accounter</Link>
             <img src="/assets/images/sidebarButton.svg" alt="" className='sideBarToggler d-lg-none' onClick={handleSidebarToggle} />
 
             <ul>
                 <li >
-                    <Link href={'/user'} className={pathname == '/user' ? "active" : ""}>შემოსავლების ჟურნალი</Link>
+                    <Link href={'/user'} className={pathname == '/user' ? "active" : ""} onClick={handleSidebarToggle} >შემოსავლების ჟურნალი</Link>
                 </li>
                 <li>
-                    <Link href={'/user/messages'} className={pathname == '/user/messages' ? "active" : ""}>RS შეტყობინებები</Link>
+                    <Link href={'/user/messages'} className={pathname == '/user/messages' ? "active" : ""} onClick={handleSidebarToggle} >RS შეტყობინებები</Link>
                 </li>
                 <li>
-                    <Link href={'/user/profile'} className={pathname == '/user/profile' ? "active" : ""}>პირადი მონაცემები</Link>
+                    <Link href={'/user/profile'} className={pathname == '/user/profile' ? "active" : ""} onClick={handleSidebarToggle} >პირადი მონაცემები</Link>
                 </li>
             </ul>
         </nav>

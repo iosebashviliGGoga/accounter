@@ -1077,11 +1077,34 @@ section.user {
   flex-shrink: 0;
 }
 
+.declarations{
+  /* padding-inline: 55px; */
+  width: 100%;
+}
 
+.declarations thead{
+  font-size: 18px;
 
+}
+.declarations th{
+  padding-block: 15px;
+}
+.declarations tbody{
+  font-size: 15px;
+}
 
-
-
+.table > :not(caption) > * > *{
+  background-color: transparent;
+}
+.declarations table tr:first-child td{
+  background-color: white;
+}
+.declarations table img{
+  cursor: pointer;
+}
+.declarations table th, .declarations table td{
+  text-align: center;
+}
 
 
 

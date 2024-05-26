@@ -48,7 +48,7 @@ export default function Page() {
     return <>
 
         <div className="userCard--wrapper">
-            <div className="userCard">
+            <div className="userCard d-none">
 
 
 
@@ -390,6 +390,88 @@ export default function Page() {
                     <h2 className='step--success'>დეკლარაციები</h2>
                 )}
 
+            </div>
+
+            <div className="userCard declarations">
+                <div className="declarations--tablewrapper">
+                    <table className='table'>
+                        <thead>
+                           <tr>
+                           <th>
+                                კომპანია
+                            </th>
+                            <th>თარიღი</th>
+                            <th>თანხა</th>
+                            <th>ვალუტა</th>
+                            <th>თანხა ლარში</th>
+                            <th>რედაქტირება </th>
+                            <th> წაშლა</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>    ...</td>
+                                <td><img src="/assets/images/calendar_add_on.svg" alt="" /></td>
+                                <td>    ...</td>
+                                <td><img src="assets/images/triangle.svg" alt="" /></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>კომპანია 45</td>
+                                <td>18.09.2023</td>
+                                <td>20</td>
+                                <td>GEL</td>
+                                <td>20</td>
+                                <td><img src="/assets/images/redaction.svg" alt="" /></td>
+                                <td><img src="/assets/images/deletion.svg" alt="" /></td>
+                            </tr>
+                            <tr>
+                                <td>კომპანია 45</td>
+                                <td>18.09.2023</td>
+                                <td>20</td>
+                                <td>GEL</td>
+                                <td>20</td>
+                                <td><img src="/assets/images/redaction.svg" alt="" /></td>
+                                <td><img src="/assets/images/deletion.svg" alt="" /></td>
+                            </tr>
+                            <tr>
+                                <td>კომპანია 45</td>
+                                <td>18.09.2023</td>
+                                <td>20</td>
+                                <td>GEL</td>
+                                <td>20</td>
+                                <td><img src="/assets/images/redaction.svg" alt="" /></td>
+                                <td><img src="/assets/images/deletion.svg" alt="" /></td>
+                            </tr>
+                            <tr>
+                                <td>კომპანია 45</td>
+                                <td>18.09.2023</td>
+                                <td>20</td>
+                                <td>GEL</td>
+                                <td>20</td>
+                                <td><img src="/assets/images/redaction.svg" alt="" /></td>
+                                <td><img src="/assets/images/deletion.svg" alt="" /></td>
+                            </tr>
+                            <tr>
+                                <td>კომპანია 45</td>
+                                <td>18.09.2023</td>
+                                <td>20</td>
+                                <td>GEL</td>
+                                <td>20</td>
+                                <td><img src="/assets/images/redaction.svg" alt="" /></td>
+                                <td><img src="/assets/images/deletion.svg" alt="" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </>

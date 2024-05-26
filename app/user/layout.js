@@ -1,8 +1,11 @@
 
+import User from "@/components/user/User";
 import Header from "../../components/user/Header";
 import Sidebar from "../../components/user/Sidebar";
 import { getAccessToken } from '@/components/robotAPI/getAccessToken';
 import { getResourceInfo } from '@/components/robotAPI/getResourceInfo';
+import { getQueueItem } from '@/components/robotAPI/getQueueItem';
+import { userAuth } from '@/components/robotAPI/userAuth';
 export const metadata = {
   title: "Accounter - მომხმარებელი",
   description: "Accounter",
@@ -12,15 +15,11 @@ export const metadata = {
 
 
 export default async function Layout({ children }) {
-  let token, resourceInfo;
-
-  try {
-    token = await getAccessToken();
-    resourceInfo = await getResourceInfo(token);
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
  
+
+
+  
+ // console.log(queueItem)
   return (
     <>
 
@@ -29,7 +28,9 @@ export default async function Layout({ children }) {
           <Sidebar />
           <div className="w-100">
             <Header />
+            {/* <div>resourceInfo {odataCount}</div> */}
             {children}
+            {/* <User userInfo={queueItem}/> */}
           </div>
         </div>
 

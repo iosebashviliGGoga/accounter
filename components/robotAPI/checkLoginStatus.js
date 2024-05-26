@@ -1,6 +1,6 @@
-export async function getResourceInfo(token) {
-    const url = "https://cloud.uipath.com/accouszyswvo/DefaultTenant/orchestrator_/odata/Jobs?%24filter=State%20eq%20'Running'";
-  
+export async function checkLoginStatus(token, uniqueId) {
+    const url = `https://cloud.uipath.com/accouszyswvo/DefaultTenant/orchestrator_/odata/QueueItems?%24filter=QueueDefinitionId%20eq%20893645%20AND%20reference%20eq%20'${uniqueId}'`;
+
     try {
       const response = await fetch(url, {
         method: 'GET',
@@ -15,11 +15,11 @@ export async function getResourceInfo(token) {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-  
       const data = await response.json();
       return data;
     } catch (error) {
-      console.error('Error fetching running jobs:', error);
+      console.error('Error checking login status:', error);
       return null;
     }
   }
+  

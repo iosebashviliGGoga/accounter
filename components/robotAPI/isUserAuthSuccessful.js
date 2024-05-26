@@ -1,5 +1,5 @@
-export async function getResourceInfo(token) {
-    const url = "https://cloud.uipath.com/accouszyswvo/DefaultTenant/orchestrator_/odata/Jobs?%24filter=State%20eq%20'Running'";
+export async function isUserAuthSuccessful(token, queueItemId) {
+    const url = `https://cloud.uipath.com/accouszyswvo/DefaultTenant/orchestrator_/odata/QueueItems(${queueItemId})`;
   
     try {
       const response = await fetch(url, {
@@ -19,7 +19,8 @@ export async function getResourceInfo(token) {
       const data = await response.json();
       return data;
     } catch (error) {
-      console.error('Error fetching running jobs:', error);
+      console.error('Error checking user auth status:', error);
       return null;
     }
   }
+  

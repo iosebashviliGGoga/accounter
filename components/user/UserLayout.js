@@ -19,13 +19,13 @@ export default async function UserLayout() {
     token = await getAccessToken(); // danarti 1
     resourceInfo = await getResourceInfo(token); // danarti 2
     isRobotBusy = resourceInfo["@odata.count"];
-    // console.log(isRobotBusy)
+     console.log(resourceInfo)
 
     if (!isRobotBusy) {
       // queueItem = await getQueueItem(token, 420570372);
       queueItem = await userAuth(token, { Reference: uniqueID }); // danarti 3
+      console.log(queueItem.Reference)
 
-      // Define an async function to use await inside setTimeout
       async function fetchLoginStatus() {
         loginStatus = await checkLoginStatus(token, uniqueID); // danarti 4
        // console.log('Login Status:', loginStatus);
@@ -37,8 +37,8 @@ export default async function UserLayout() {
         }
       }
 
-      // Use setTimeout to call the async function
-      setTimeout(fetchLoginStatus, 1000); // 1000ms delay for example
+
+      setTimeout(fetchLoginStatus, 1000); 
 
       console.log(queueItem.Reference);
     }

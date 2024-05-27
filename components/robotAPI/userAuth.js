@@ -6,8 +6,8 @@ export async function userAuth(token, itemData) {
         Name: "RSUserPassword",
         Priority: "High",
         SpecificContent: {
-          rsuser: "user",
-          rspassword: "password",
+          rsuser: "61006029224",
+          rspassword: "25ko12ba",
           number: "55555"
         },
         Reference: itemData.Reference, // Ensure this is unique

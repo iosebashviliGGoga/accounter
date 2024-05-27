@@ -405,7 +405,7 @@ export default function User(props) {
 
             </div>
 
-            <div className="userCard declarations">
+            <div className="userCard declarations ">
                 <div className="declarations--tablewrapper">
             
                 {props.userInfo?.value?.map((user) =>{

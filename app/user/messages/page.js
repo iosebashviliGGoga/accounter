@@ -1,6 +1,7 @@
 "use client"
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
@@ -11,6 +12,18 @@ export default function Page() {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+
+    const useAuthRedirect = () => {
+        const router = useRouter();
+    
+        useEffect(() => {
+            const isSigned = localStorage.getItem('isSigned');
+            if (isSigned === 'false') {
+                router.push('/auth/login');
+            }
+        }, [router]);
+    };
+    useAuthRedirect()
 
     return <>
 

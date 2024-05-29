@@ -1,10 +1,14 @@
 "use client"
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Link from "next/link";
 
-
-
 function Header() {
+    const [isSigned, setIsSigned] = useState(null);
+
+    useEffect(() => {
+        const storedIsSigned = localStorage.getItem('isSigned');
+        setIsSigned(storedIsSigned);
+    }, []);
 
     return (
         <header className="siteHeader">
@@ -18,14 +22,18 @@ function Header() {
                             <Link className="header--outlined" href={'/site#howItWorks'}>როგორ მუშაობს?</Link>
                             <Link className="" href={'/site#choosePackage'}>ფასები</Link>
                         </div>
-
-                        <div className="d-flex gap-lg-5 gap-3 flex-lg-row flex-column">
-                            <Link className=" btn--green d-lg-grid d-none" href={'/auth/login'}>შესვლა</Link>
-                            {/* <Link className="  btn--orange" href={'/auth/registration'}>სცადე უფასოდ</Link> */}
-                            <Link className="  btn--orange" href={'/auth/login'}>სცადე უფასოდ</Link>
-                        </div>
+                        {isSigned === 'true' ? (
+                            <Link href={'/user'} className="userHeader--name">
+                                <img src="/assets/images/person.svg" alt="" />
+                                <span>გიორგი ბერიძე</span>
+                            </Link>
+                        ) : (
+                            <div className="d-flex gap-lg-5 gap-3 flex-lg-row flex-column">
+                                <Link className=" btn--green d-lg-grid d-none" href={'/auth/login'}>შესვლა</Link>
+                                <Link className="  btn--orange" href={'/auth/login'}>სცადე უფასოდ</Link>
+                            </div>
+                        )}
                     </div>
-
 
                     <button
                         className="navbar-toggler d-lg-none"
@@ -38,14 +46,8 @@ function Header() {
                     >
                         <img src="/assets/images/burger-menu.svg" alt="Toggle navigation" />
                     </button>
-
-
                 </nav>
             </div>
-
-
-
-
         </header>
     );
 }

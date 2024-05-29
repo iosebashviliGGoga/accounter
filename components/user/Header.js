@@ -1,9 +1,18 @@
 "use client"
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation';
 import Link from "next/link";
 
 function Header() {
+    const router = useRouter();
 
+    const handleLogout = () => {
+      // Set the local storage item to false
+      localStorage.setItem('isSigned', 'false');
+  
+      // Navigate to /site
+      router.push('/site');
+    };
     // const [result, setResult] = useState(null);
 
     // const addQueueItem = async () => {
@@ -66,7 +75,7 @@ function Header() {
             </Link>
 
 
-            <button className="userHeader--logout">
+            <button className="userHeader--logout" onClick={handleLogout}>
                 <img src="/assets/images/logout.svg" alt="" />
                 <span>გასვლა</span>
             </button>

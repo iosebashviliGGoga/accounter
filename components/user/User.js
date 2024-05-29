@@ -1,13 +1,13 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import CustomDropdownIcon from '@/components/atoms/CustomDropdownIcon';
-
+import { useRouter } from 'next/navigation';
 
 const names = [
     'თბილისი',
@@ -56,6 +56,18 @@ export default function User(props) {
           second: '2-digit',
         });
       }
+
+      const useAuthRedirect = () => {
+        const router = useRouter();
+    
+        useEffect(() => {
+            const isSigned = localStorage.getItem('isSigned');
+            if (isSigned === 'false') {
+                router.push('/auth/login');
+            }
+        }, [router]);
+    };
+    useAuthRedirect()
      // console.log(props.userInfo.value)
     return <>
 

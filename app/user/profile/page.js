@@ -1,5 +1,5 @@
 "use client"
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import IconButton from '@mui/material/IconButton';
 
 import FilledInput from '@mui/material/FilledInput';
@@ -13,6 +13,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { styled } from '@mui/material/styles';
 import { PaymentInputsWrapper, usePaymentInputs } from 'react-payment-inputs';
 import images from 'react-payment-inputs/images';
+import { useRouter } from 'next/navigation';
 function Page() {
     const [showPassword, setShowPassword] = useState(false);
 
@@ -80,6 +81,19 @@ function Page() {
             }),
         },
     }));
+
+
+    const useAuthRedirect = () => {
+        const router = useRouter();
+    
+        useEffect(() => {
+            const isSigned = localStorage.getItem('isSigned');
+            if (isSigned === 'false') {
+                router.push('/auth/login');
+            }
+        }, [router]);
+    };
+    useAuthRedirect()
 
     return <div className="userCard--wrapper">
 

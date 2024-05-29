@@ -25,6 +25,7 @@ export default function Page() {
      setError(1)
     } else{
       router.push('/user');
+      localStorage.setItem('isSigned', 'true');
     }
   };
 

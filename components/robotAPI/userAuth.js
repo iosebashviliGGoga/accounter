@@ -1,4 +1,7 @@
 export async function userAuth(token, itemData) {
+  console.log(itemData.Reference)
+  console.log(`token`,token)
+
     const url = 'https://cloud.uipath.com/accouszyswvo/DefaultTenant/orchestrator_/odata/Queues/UiPathODataSvc.AddQueueItem';
   
     const body = JSON.stringify({
@@ -14,7 +17,7 @@ export async function userAuth(token, itemData) {
         Progress: "new"
       }
     });
-  
+    
     try {
       const response = await fetch(url, {
         method: 'POST',

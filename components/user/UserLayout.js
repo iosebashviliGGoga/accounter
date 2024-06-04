@@ -23,8 +23,9 @@ export default async function UserLayout() {
 
     if (!isRobotBusy) {
       // queueItem = await getQueueItem(token, 420570372);
+      console.log(uniqueID)
       queueItem = await userAuth(token, { Reference: uniqueID }); // danarti 3
-      console.log(queueItem.Reference)
+      console.log(queueItem)
 
       async function fetchLoginStatus() {
         loginStatus = await checkLoginStatus(token, uniqueID); // danarti 4

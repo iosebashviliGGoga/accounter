@@ -53,7 +53,13 @@ export default function Page() {
                     } else {
                         setError(0)
                         setFillError(0)
-                        localStorage.setItem('user', JSON.stringify(data.user));
+                        const userData = {
+                            ...data.user, // Assuming data.user contains the user's profile information
+                            email: email,
+                            password: password
+                        };
+                        
+                        localStorage.setItem('user', JSON.stringify(userData));
                         router.push('/user/profile')
                     }
                     // Handle successful registration (e.g., navigate to the next step)

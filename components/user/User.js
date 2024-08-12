@@ -112,6 +112,8 @@ export default function User(props) {
         } else {
             setLoading(1)
             setCurrentStep(0)
+
+            const storedUser = JSON.parse(localStorage.getItem('user'));
             try {
                 const response = await fetch('https://dev.proservice.ge/accounnter/api/login.php', {
                     method: 'POST',
@@ -119,6 +121,8 @@ export default function User(props) {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
+                        email: storedUser.email,
+                        password: storedUser.password,
                         complete_registration: "true",
                         first_name: name,
                         last_name: surname,

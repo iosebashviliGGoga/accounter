@@ -24,8 +24,8 @@ export default function Page() {
     if (inputEmail !== email || inputPassword !== password) {
      setError(1)
     } else{
-      router.push('/user');
-      localStorage.setItem('isSigned', 'true');
+      // router.push('/user');
+      // localStorage.setItem('isSigned', 'true');
     }
   };
 

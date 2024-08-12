@@ -1,21 +1,22 @@
 "use client"
+import User from "@/components/user/User";
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
 export default function Page() {
     const router = useRouter();
 
     const redirectToUserInfo = (e) => {
-        e.preventDefault()
-        router.push('/user');
+        // e.preventDefault()
+        // router.push('/user');
     };
     return (
         <div className="container">
 
-
-            <form action="" className="auth--form auth--form__registration">
+            <User/>
+                
+            {/* <form action="" className="auth--form auth--form__registration">
                 <h3 className="auth--form__header">
                     რეგისტრაცია
-
                 </h3>
                 <div>
                     <div className="position-relative">
@@ -46,7 +47,7 @@ export default function Page() {
                         <img src="/assets/images/login-google.png" alt="" />
                     </div>
                 </div>
-            </form>
+            </form> */}
 
 
             {/* <form action="" className="auth--form d-flex flex-column justify-content-center auth--form__messageSend">

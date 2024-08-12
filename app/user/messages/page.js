@@ -23,7 +23,7 @@ export default function Page() {
             }
         }, [router]);
     };
-    useAuthRedirect()
+    // useAuthRedirect()
 
     return <>
 

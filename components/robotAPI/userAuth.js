@@ -1,6 +1,5 @@
 export async function userAuth(token, itemData) {
-  console.log(itemData.Reference)
-  console.log(`token`,token)
+  // console.log(`token`,token)
 
     const url = 'https://cloud.uipath.com/accouszyswvo/DefaultTenant/orchestrator_/odata/Queues/UiPathODataSvc.AddQueueItem';
   
@@ -9,11 +8,11 @@ export async function userAuth(token, itemData) {
         Name: "RSUserPassword",
         Priority: "High",
         SpecificContent: {
-          rsuser: "61006029224",
-          rspassword: "25ko12ba",
+          rsuser: "22001007719",
+          rspassword: "557449",
           number: "55555"
         },
-        Reference: itemData.Reference, // Ensure this is unique
+        Reference: itemData.Reference, 
         Progress: "new"
       }
     });

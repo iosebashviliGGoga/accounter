@@ -62,9 +62,9 @@ export default function User(props) {
     
         useEffect(() => {
             const isSigned = localStorage.getItem('isSigned');
-            if (isSigned === 'false') {
-                router.push('/auth/login');
-            }
+            // if (isSigned === 'false') {
+            //     router.push('/auth/login');
+            // }
         }, [router]);
     };
     useAuthRedirect()
@@ -73,7 +73,7 @@ export default function User(props) {
 
         <div className="userCard--wrapper">
         
-            <div className="userCard d-none">
+            <div className="userCard ">
 
 
 
@@ -417,7 +417,7 @@ export default function User(props) {
 
             </div>
 
-            <div className="userCard declarations ">
+            <div className="userCard declarations d-none">
                 <div className="declarations--tablewrapper">
             
                 {props.userInfo?.value?.map((user) =>{

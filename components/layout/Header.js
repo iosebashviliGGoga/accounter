@@ -30,7 +30,7 @@ function Header() {
                         ) : (
                             <div className="d-flex gap-lg-5 gap-3 flex-lg-row flex-column">
                                 <Link className=" btn--green d-lg-grid d-none" href={'/auth/login'}>შესვლა</Link>
-                                <Link className="  btn--orange" href={'/auth/login'}>სცადე უფასოდ</Link>
+                                <Link className="  btn--orange" href={'/auth/registration'}>რეგისტრაცია</Link>
                             </div>
                         )}
                     </div>

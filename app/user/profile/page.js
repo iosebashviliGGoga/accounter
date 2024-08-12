@@ -82,22 +82,31 @@ function Page() {
         },
     }));
 
-
+   
+    const [isUserFullyRegistered,setIsUserFullyRegistered] = useState(0)
     const useAuthRedirect = () => {
         const router = useRouter();
-    
+
         useEffect(() => {
             const isSigned = localStorage.getItem('isSigned');
-            if (isSigned === 'false') {
-                router.push('/auth/login');
+            // if (isSigned === 'false') {
+            //     router.push('/auth/login');
+            // }
+
+            const userInfo = localStorage.getItem('user');
+            console.log(userInfo)
+            if(userInfo.status == 1){
+                setIsUserFullyRegistered(1)
             }
+            
         }, [router]);
     };
     useAuthRedirect()
+    isUserFullyRegistered
 
-    return <div className="userCard--wrapper">
+    return <div className={`userCard--wrapper ${!isUserFullyRegistered ? "d-none" : ""}`}>
 
-        <div className="userCard">
+        <div className="userCard ">
 
             <div className="profile--header">
                 <div className="profile--initals">
@@ -167,7 +176,7 @@ function Page() {
                         <input
 
                             value={`5483 8803 5431 2523`}
-                            
+
                         />
                     </PaymentInputsWrapper>
                     <div className="cardinput--delete">

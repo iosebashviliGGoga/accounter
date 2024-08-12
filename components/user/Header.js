@@ -71,7 +71,7 @@ function Header() {
             <img src="/assets/images/burger-menu.svg" alt="Toggle navigation" className="d-lg-none cursor-pointer" onClick={handleSidebarToggle} />
             <Link href={'/user'} className="userHeader--name">
                 <img src="/assets/images/person.svg" alt="" />
-                <span>გიორგი ბერიძე</span>
+                <span></span>
             </Link>
 
 

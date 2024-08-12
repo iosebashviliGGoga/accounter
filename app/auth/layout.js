@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "Accounter -ავტორიზაცია",
+  // title: "Accounter -ავტორიზაცია",
   description: "",
 };
 export default function Layout({ children }) {

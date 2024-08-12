@@ -1184,3 +1184,23 @@ section.user {
     fill: #FFCDB0;
   }
 }
+
+
+
+
+.auth--form{
+  min-height: 490px;
+  padding-top: 45px;
+}
+
+input[type="number"]{
+  appearance: textfield;
+}
+.steps--error{
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+.loader--container{
+  margin-top: 0;
+}

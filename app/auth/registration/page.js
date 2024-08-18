@@ -48,7 +48,7 @@ export default function Page() {
                         console.log(data.errors.login)
                         setError(1)
                         setFillError(0)
-                        document.querySelector('.auth--form__header .error-password').textContent = data.errors.login
+                        document.querySelector('.auth--form__header .error-password').textContent = data.errors.errors
 
                     } else {
                         setError(0)

@@ -1013,16 +1013,19 @@ section.user {
   width: 457px;
   height: 56px;
 }
-.userCard--customselect .MuiFormControl-root label{
+
+.userCard--customselect .MuiFormControl-root label {
   color: rgba(7, 99, 93, 0.70) !important;
   font-size: 22px !important;
   top: -2px;
   font-family: "BPG Nino Mtavruli Bold" !important;
 }
-.userCard--customselect .MuiInputBase-root{
+
+.userCard--customselect .MuiInputBase-root {
   font-family: "BPG Nino Mtavruli Bold" !important;
   color: rgba(7, 99, 93, 0.70) !important;
 }
+
 .userCard--customselect .MuiInputBase-root:hover .MuiOutlinedInput-notchedOutline {
   border: 3px solid rgba(7, 99, 93, 0.25);
 }
@@ -1033,13 +1036,16 @@ section.user {
   font-size: 25px;
   color: var(--main-green);
 }
-.userCard--customselect svg{
+
+.userCard--customselect svg {
   margin-right: 30px;
 }
-.MuiInputBase-input[aria-expanded="false"] +  .custom-arrow-icon {
+
+.MuiInputBase-input[aria-expanded="false"]+.custom-arrow-icon {
   transform: rotate(180deg);
 }
-.customSelects--container{
+
+.customSelects--container {
   margin-top: 20px;
   display: flex;
   flex-direction: column;
@@ -1048,21 +1054,21 @@ section.user {
 }
 
 
-.checkboxes--container{
+.checkboxes--container {
   display: grid;
   grid-template-columns: 1fr 1fr;
   row-gap: 35px;
   column-gap: 100px;
-  padding-inline:100px;
+  padding-inline: 100px;
   margin-bottom: 80px;
 }
 
-.checkboxes--container .checkbox-wrapper{
+.checkboxes--container .checkbox-wrapper {
   justify-content: flex-start;
 
 }
 
-.checkboxes--container .checkbox-wrapper label{
+.checkboxes--container .checkbox-wrapper label {
   display: flex;
   align-items: center;
   gap: 40px;
@@ -1073,36 +1079,42 @@ section.user {
 
 
 
-.checkboxes--container .checkbox-wrapper label::before{
+.checkboxes--container .checkbox-wrapper label::before {
   flex-shrink: 0;
 }
 
-.declarations{
+.declarations {
   /* padding-inline: 55px; */
   width: 100%;
 }
 
-.declarations thead{
+.declarations thead {
   font-size: 18px;
 
 }
-.declarations th{
+
+.declarations th {
   padding-block: 15px;
 }
-.declarations tbody{
+
+.declarations tbody {
   font-size: 15px;
 }
 
-.table > :not(caption) > * > *{
+.table> :not(caption)>*>* {
   background-color: transparent;
 }
-.declarations table tr:first-child td{
+
+.declarations table tr:first-child td {
   background-color: white;
 }
-.declarations table img{
+
+.declarations table img {
   cursor: pointer;
 }
-.declarations table th, .declarations table td{
+
+.declarations table th,
+.declarations table td {
   text-align: center;
 }
 
@@ -1188,19 +1200,121 @@ section.user {
 
 
 
-.auth--form{
+.auth--form {
   min-height: 490px;
   padding-top: 45px;
 }
 
-input[type="number"]{
+input[type="number"] {
   appearance: textfield;
 }
-.steps--error{
+
+.steps--error {
   left: 0;
   width: 100%;
   text-align: center;
 }
-.loader--container{
+
+.loader--container {
   margin-top: 0;
+}
+
+
+.month-selector-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+
+  font-size: 22px;
+  color: var(--main-orange);
+}
+
+.month-selector {
+  display: flex;
+  align-items: center;
+}
+
+.arrow-button {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  color: var(--main-orange);
+}
+
+.month-display {
+  margin: 0 10px;
+  color: #FF7F00;
+  font-weight: bold;
+  width: 130px;
+  text-align: center;
+  margin-top: 5px;
+}
+
+.radio-group {
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+  font-size: 22px;
+  color: var(--main-green);
+  gap: 5px;
+}
+
+.radio-label {
+  margin: 0 10px;
+  color: var(--main-green);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.radio-label input{
+  margin-bottom: 5px;
+}
+.year-selector{
+  color: var(--main-green);
+  margin-left: 25px;
+  display: flex;
+  gap: 5px;
+}
+.year-selector button{
+  font-size: 22px;
+  font-weight: bold;
+  color: var(--main-green);
+}
+.year-button:not(.active){
+  opacity: 0.8;
+}
+
+.declarations--years.declarations table tr:first-child td {
+  background-color: transparent;
+}
+.declarations--years.declarations table td,.declarations--years.declarations table th{
+  color: var(--main-green);
+}
+.declarations--years.declarations table th:last-child{
+  color: var(--main-orange);
+}
+.declarations--years.declarations table td:last-child{
+  background-color: #F7DFD1;
+}
+.declarations--years.declarations table td{
+  font-size: 15px;
+}
+.declarations--years.declarations table th{
+  font-size: 18px;
+}
+.declarations .declarations--tablewrapper{
+  margin-inline: 75px;
+}
+.declarations {
+  height: calc(100vh - 107px - 40px - 40px - 48px - 75px);
+  min-height: 385px;
+}
+.error-password{
+  text-align: center;
+}
+
+.code--error{
+  left: 50% !important; 
 }

@@ -7,10 +7,8 @@ function Header() {
     const router = useRouter();
 
     const handleLogout = () => {
-      // Set the local storage item to false
       localStorage.setItem('isSigned', 'false');
-  
-      // Navigate to /site
+      localStorage.removeItem('user');
       router.push('/site');
     };
     // const [result, setResult] = useState(null);

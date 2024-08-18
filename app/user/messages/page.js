@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-
+import useAuthRedirect from '@/components/atoms/UseAuthRedirect'; // Import your custom hook
 
 export default function Page() {
     const [show, setShow] = useState(false);
@@ -13,17 +13,7 @@ export default function Page() {
     const handleShow = () => setShow(true);
 
 
-    const useAuthRedirect = () => {
-        const router = useRouter();
-    
-        useEffect(() => {
-            const isSigned = localStorage.getItem('isSigned');
-            if (isSigned === 'false') {
-                router.push('/auth/login');
-            }
-        }, [router]);
-    };
-    // useAuthRedirect()
+    const { isUserFullyRegistered, user } = useAuthRedirect(); // Use the custom hook
 
     return <>
 

@@ -30,7 +30,7 @@ export default async function Layout({ children }) {
             <Header />
             {/* <div>resourceInfo {odataCount}</div> */}
             {children}
-            <User/>
+            {/* <User/> */}
           </div>
         </div>
 

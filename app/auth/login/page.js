@@ -102,7 +102,7 @@ export default function Page() {
           if (!data.success) { 
             setError(1)
             setFillError(0)
-            document.querySelector('.auth--form__header .error-password').textContent = data.errors.login
+            document.querySelector('.auth--form__header .error-password').textContent = data.message
 
            } else{
             setError(0)

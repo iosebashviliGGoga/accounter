@@ -8,6 +8,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import CustomDropdownIcon from '@/components/atoms/CustomDropdownIcon';
 import { useRouter } from 'next/navigation';
+import { setRef } from '@mui/material';
 
 const names = [
     'თბილისი',
@@ -37,7 +38,7 @@ export default function User(props) {
 
     };
 
-
+    const router = useRouter();
     const [age, setAge] = useState('');
 
     const handleChange = (event) => {
@@ -57,7 +58,7 @@ export default function User(props) {
     }
 
     const useAuthRedirect = () => {
-        const router = useRouter();
+
 
         useEffect(() => {
             const isSigned = localStorage.getItem('isSigned');
@@ -100,6 +101,10 @@ export default function User(props) {
         }
     };
 
+
+    const [referenceId, setReferenceId] = useState()
+
+    const [rsUserError, setRsUserError] = useState('')
     const handleRSregistration = async (e) => {
         e.preventDefault();
 
@@ -121,7 +126,9 @@ export default function User(props) {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        email: storedUser.email,
+                        "user": {
+                            email: storedUser.email,
+                        },
                         password: storedUser.password,
                         complete_registration: "true",
                         first_name: name,
@@ -135,6 +142,27 @@ export default function User(props) {
                 if (response.ok) {
                     const data = await response.json();
                     console.log('Success:', data);
+                    console.log(data.getQueueItemData)
+
+
+                    if (data.getQueueItemData.Status == 'Successful') {
+                        //     setReferenceId(data.getQueueItemData.Reference)
+                        setCurrentStep(4)
+                        setLoading(0)
+                        localStorage.setItem('access_token', data.access_token)
+
+
+                    } else {
+                        setLoading(0)
+                        setCurrentStep(2)
+                        setError(1)
+                        setFillError(0)
+                        setRsUserError(data.message)
+                        // document.querySelector('.input--container .error-password').textContent = data.message
+
+                        console.log('fail')
+                    }
+
                     // Handle successful registration (e.g., navigate to the next step)
                 } else {
                     console.error('Error:', response.statusText);
@@ -148,11 +176,167 @@ export default function User(props) {
     };
 
 
+    // const [referenceFor11tve,setReferenceFor11tve] = useState()
+    // const [idFor11tve,setIdFor11tve] = useState()
+    const [rsSMSerror, setRsSMSerror] = useState('')
+    const [SMSError,setSMSError] = useState(0)
+    const handleRSsms = async (e) => {
+        const storedUser = JSON.parse(localStorage.getItem('user'));
+        const smsValue = document.querySelector('#smsV').value
+        setLoading(1)
+        setCurrentStep(0)
+        try {
+            const response = await fetch('https://dev.proservice.ge/accounnter/api/sms_verify.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "user": {
+                        email: storedUser.email,
+                    },
+                    "itemData": {
+                        "Name": "UsersCode",
+                        "Priority": "High",
+                        "SpecificContent": {
+                            "code": smsValue
+                        },
+                        "Reference": referenceId,
+                        "Progress": "new"
+                    },
+                    // "access_token": localStorage.getItem('access_token')
+                })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Success:', data);
+                // document.querySelector('.profile--wrapper').classList.remove('d-none')
+
+
+                //        setLoading(0)
+                //        setCurrentStep(10)
+                if(data.authItemData.Status == 'Successful'){
+                  //  console.log(data.authItemData.Reference, data.authItemData.Id)
+                  //  let referenceFor11tve = data.authItemData.Reference
+                  //  let idFor11tve = data.authItemData.Id
+    
+    
+                    handleFirst11Fetch()
+                } else{
+                    setLoading(0)
+                    setCurrentStep(4)
+                    setSMSError(1)
+                    setFillError(0)
+                    setRsSMSerror(data.message)
+                }
+                
+
+                // Handle successful registration (e.g., navigate to the next step)
+            } else {
+                console.error('Error:', response.statusText);
+                alert('Registration failed. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again later.');
+        }
+    }
+
+
+    
+    const handleFirst11Fetch = async () => {
+        const storedUser = JSON.parse(localStorage.getItem('user'));
+        setLoading(1)
+        setCurrentStep(0)
+        try {
+            const response = await fetch('https://dev.proservice.ge/accounnter/api/declaration.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    // "authItemData": {
+                    //     "Id": idFor11tve,
+                    //     "Reference": referenceFor11tve
+                    // },
+                    // "access_token": localStorage.getItem('access_token')
+                    "user": {
+                        email: storedUser.email,
+                    },
+                })
+            });
+
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Success:', data);
+                // document.querySelector('.profile--wrapper').classList.remove('d-none')
+                setLoading(0)
+                setCurrentStep(10)
+                handleLogin()
+
+                // Handle successful registration (e.g., navigate to the next step)
+            } else {
+                console.error('Error:', response.statusText);
+                alert('Registration failed. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again later.');
+        }
+    }
+
+
+    const handleLogin = async () => {
+        const storedUser = JSON.parse(localStorage.getItem('user'));
+
+
+        try {
+            const response = await fetch('https://dev.proservice.ge/accounnter/api/login.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    // email:"goga123s@gmail.com",
+                    // password:"goga123",
+                    email: storedUser.email,
+                    password: storedUser.password
+                })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Success:', data);
+                if (!data.success) {
+                    setError(1)
+                    setFillError(0)
+                    document.querySelector('.auth--form__header .error-password').textContent = data.message
+
+                } else {
+                 //   setError(0)
+                 //   setFillError(0)
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                 //   router.push('/user/profile')
+                }
+                // Handle successful registration (e.g., navigate to the next step)
+            } else {
+                console.error('Error:', response.statusText);
+                alert('Registration failed. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again later.');
+        }
+
+
+    };
     return <>
 
-        <div className="userCard--wrapper">
+        <div className={`userCard--wrapper`}>
 
-            <div className="userCard ">
+            <div className={`userCard ${currentStep == 11 ? 'd-none' : ""}`}>
 
 
 
@@ -227,6 +411,10 @@ export default function User(props) {
                                             <p className={`steps--error ${!fillerror ? "d-none" : ""}`}>
                                                 გთხოვთ შეავსოთ ყველა ველი
                                             </p>
+
+                                            <p className={`error-password ${!error ? 'd-none' : ""}`}>
+                                                {rsUserError}
+                                            </p>
                                         </div>
                                         <div className="checkbox-wrapper">
                                             <input type="checkbox" id="html" />
@@ -242,391 +430,391 @@ export default function User(props) {
                             </div>
                         </div>
                     )}
-               
 
 
-            </div>
 
-            {loading ? (
-                <div className="w-100 h-100 d-flex justify-content-center align-items-center">
-                    <div>
-                        <div className="d-flex flex-column align-items-center step3">
-                            <h2 className='step--success'>დაგველოდე, მიმდინარეობს <br></br>
-                                რს-ზე ვალიდაცია</h2>
-                            <div className='loader--container'>
-                                <svg width="155" height="154" viewBox="0 0 155 154" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="70.7695" width="12.5415" height="40.2474" fill="#FF6D1B" />
-                                    <rect x="71.666" y="113.588" width="12.5415" height="40.2474" fill="#FF9052" />
-                                    <rect width="12.5309" height="40.2813" transform="matrix(0.688531 -0.725207 0.726305 0.687372 16.125 29.6582)" fill="#FD7224" />
-                                    <rect width="12.5326" height="40.2759" transform="matrix(0.74737 0.664409 -0.665594 0.746314 49.2031 101.961)" fill="#FF833D" />
-                                    <rect width="12.5214" height="40.3118" transform="matrix(-0.00357863 -0.999994 0.999994 -0.00356721 0.0449219 84.2168)" fill="#FF7F37" />
-                                    <rect width="12.5214" height="40.3118" transform="matrix(0.00187608 0.999998 -0.999998 0.00187009 154.977 71.5508)" fill="#FDB58D" />
-                                    <rect width="12.5311" height="40.2806" transform="matrix(-0.696529 0.717528 -0.71864 -0.695382 135.32 128.182)" fill="#FC9D68" />
-                                    <rect width="12.5316" height="40.2792" transform="matrix(0.712852 0.701314 -0.702453 0.71173 128.625 17.8887)" fill="#FFCDB0" />
-                                </svg>
+                </div>
+
+                {loading ? (
+                    <div className="w-100 h-100 d-flex justify-content-center align-items-center">
+                        <div>
+                            <div className="d-flex flex-column align-items-center step3">
+                                <h2 className='step--success'>დაგველოდე, მიმდინარეობს <br></br>
+                                    რს-ზე ვალიდაცია</h2>
+                                <div className='loader--container'>
+                                    <svg width="155" height="154" viewBox="0 0 155 154" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect x="70.7695" width="12.5415" height="40.2474" fill="#FF6D1B" />
+                                        <rect x="71.666" y="113.588" width="12.5415" height="40.2474" fill="#FF9052" />
+                                        <rect width="12.5309" height="40.2813" transform="matrix(0.688531 -0.725207 0.726305 0.687372 16.125 29.6582)" fill="#FD7224" />
+                                        <rect width="12.5326" height="40.2759" transform="matrix(0.74737 0.664409 -0.665594 0.746314 49.2031 101.961)" fill="#FF833D" />
+                                        <rect width="12.5214" height="40.3118" transform="matrix(-0.00357863 -0.999994 0.999994 -0.00356721 0.0449219 84.2168)" fill="#FF7F37" />
+                                        <rect width="12.5214" height="40.3118" transform="matrix(0.00187608 0.999998 -0.999998 0.00187009 154.977 71.5508)" fill="#FDB58D" />
+                                        <rect width="12.5311" height="40.2806" transform="matrix(-0.696529 0.717528 -0.71864 -0.695382 135.32 128.182)" fill="#FC9D68" />
+                                        <rect width="12.5316" height="40.2792" transform="matrix(0.712852 0.701314 -0.702453 0.71173 128.625 17.8887)" fill="#FFCDB0" />
+                                    </svg>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-            ) : ""}
-            {currentStep === 4 && (
-                <div className="w-100 h-100 d-flex justify-content-center align-items-center">
-                    <div>
-                        <div className="d-flex flex-column align-items-center step3">
-                            <h2 className='step--success'>შეიყვანეთ სმს კოდი:</h2>
-                            <div className="d-flex flex-column align-items-center step2">
-                                <div className="input--container ">
-                                    <div className='position-relative'>
-                                        <input type="text" name="RSpassword" className="form-control" placeholder="" />
-                                        <div className="d-flex justify-content-center">
-                                            <button className='resend--code'>
-                                                კოდის ხელახლა გაგზავნა
-                                            </button>
+                ) : ""}
+                {currentStep === 4 && (
+                    <div className="w-100 h-100 d-flex justify-content-center align-items-center">
+                        <div>
+                            <div className="d-flex flex-column align-items-center step3">
+                                <h2 className='step--success'>შეიყვანეთ სმს კოდი:</h2>
+                                <div className="d-flex flex-column align-items-center step2">
+                                    <div className="input--container ">
+                                        <div className='position-relative'>
+                                            <input type="text" name="smsV" className="form-control" placeholder="" id='smsV' />
+                                            <div className="d-flex justify-content-center">
+                                                <button className='resend--code'>
+                                                    კოდის ხელახლა გაგზავნა
+                                                </button>
+                                            </div>
+                                            <p className={`steps--error code--error ${!SMSError ? 'd-none' : ""}`}>
+                                                {rsSMSerror}
+                                            </p>
                                         </div>
-                                        {/* <p className="steps--error code--error">
-                                                კოდი არასწორია!
-                                            </p> */}
+
                                     </div>
+                                    <button className="usercard--submitBtn" onClick={handleRSsms}>გაგრძელება</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                )}
+
+
+                {currentStep === 5 && (
+                    <div className="w-100 h-100 d-flex justify-content-center align-items-center">
+                        <div>
+                            <div className="d-flex flex-column align-items-center step3">
+                                <h2 className='text-center mb-4'>შეავსეთ ინფორმაციული <br></br> ჩანართი:</h2>
+
+                                <div className="customSelects--container">
+                                    <Box className="userCard--customselect">
+                                        <FormControl fullWidth>
+                                            <InputLabel id="demo-simple-select-label">რეგიონი</InputLabel>
+                                            <Select
+                                                labelId="demo-simple-select-label"
+                                                id="demo-simple-select"
+                                                value={age}
+                                                label="რეგიონი"
+                                                IconComponent={CustomDropdownIcon}
+                                                onChange={handleChange}
+                                            >
+                                                {names.map((name) => {
+                                                    return <MenuItem value={name}>{name}</MenuItem>
+                                                })}
+                                            </Select>
+                                        </FormControl>
+                                    </Box>
+                                    <Box className="userCard--customselect">
+                                        <FormControl fullWidth>
+                                            <InputLabel id="demo-simple-select-label">რაიონი/ქალაქი</InputLabel>
+                                            <Select
+                                                labelId="demo-simple-select-label"
+                                                id="demo-simple-select"
+                                                value={age}
+                                                label="რაიონი/ქალაქი"
+                                                IconComponent={CustomDropdownIcon}
+                                                onChange={handleChange}
+                                            >
+                                                {names.map((name) => {
+                                                    return <MenuItem value={name}>{name}</MenuItem>
+                                                })}
+                                            </Select>
+                                        </FormControl>
+                                    </Box>
+                                    <Box className="userCard--customselect">
+                                        <FormControl fullWidth>
+                                            <InputLabel id="demo-simple-select-label">ქუჩა/სოფელი</InputLabel>
+                                            <Select
+                                                labelId="demo-simple-select-label"
+                                                id="demo-simple-select"
+                                                value={age}
+                                                label="ქუჩა/სოფელი"
+                                                IconComponent={CustomDropdownIcon}
+                                                onChange={handleChange}
+                                            >
+                                                {names.map((name) => {
+                                                    return <MenuItem value={name}>{name}</MenuItem>
+                                                })}
+                                            </Select>
+                                        </FormControl>
+                                    </Box>
+                                    <Box className="userCard--customselect">
+                                        <FormControl fullWidth>
+                                            <InputLabel id="demo-simple-select-label">შენობა/ობიექტის N</InputLabel>
+                                            <Select
+                                                labelId="demo-simple-select-label"
+                                                id="demo-simple-select"
+                                                value={age}
+                                                label="შენობა/ობიექტის N"
+                                                IconComponent={CustomDropdownIcon}
+                                                onChange={handleChange}
+                                            >
+                                                {names.map((name) => {
+                                                    return <MenuItem value={name}>{name}</MenuItem>
+                                                })}
+                                            </Select>
+                                        </FormControl>
+                                    </Box>
+                                </div>
+                                <button className="usercard--submitBtn" onClick={handleNextStep}>გაგრძელება</button>
+                            </div>
+                        </div>
+                    </div>
+
+                )}
+
+                {currentStep === 6 && (
+                    <div className="w-100 h-100 d-flex justify-content-center align-items-center">
+                        <div>
+                            <div className="d-flex flex-column align-items-center step3">
+
+                                <div className="customSelects--container">
+                                    <Box className="userCard--customselect">
+                                        <FormControl fullWidth>
+                                            <InputLabel id="demo-simple-select-label">ძირითადი საქმიანობა</InputLabel>
+                                            <Select
+                                                labelId="demo-simple-select-label"
+                                                id="demo-simple-select"
+                                                value={age}
+                                                label="ძირითადი საქმიანობა"
+                                                IconComponent={CustomDropdownIcon}
+                                                onChange={handleChange}
+                                            >
+                                                {names.map((name) => {
+                                                    return <MenuItem value={name}>{name}</MenuItem>
+                                                })}
+                                            </Select>
+                                        </FormControl>
+                                    </Box>
+                                    <Box className="userCard--customselect">
+                                        <FormControl fullWidth>
+                                            <InputLabel id="demo-simple-select-label">დამატებითი საქმიანობები</InputLabel>
+                                            <Select
+                                                labelId="demo-simple-select-label"
+                                                id="demo-simple-select"
+                                                value={age}
+                                                label="დამატებითი საქმიანობები"
+                                                IconComponent={CustomDropdownIcon}
+                                                onChange={handleChange}
+                                            >
+                                                {names.map((name) => {
+                                                    return <MenuItem value={name}>{name}</MenuItem>
+                                                })}
+                                            </Select>
+                                        </FormControl>
+                                    </Box>
 
                                 </div>
                                 <button className="usercard--submitBtn" onClick={handleNextStep}>გაგრძელება</button>
                             </div>
                         </div>
                     </div>
-                </div>
 
-            )}
+                )}
+
+                {currentStep === 7 && (
+                    <div className="w-100 h-100 d-flex justify-content-center align-items-center step7">
+                        <div>
+                            <div className="d-flex flex-column align-items-center">
+                                <h2 className='text-center mb-4'>შეავსეთ ინფორმაციული <br></br> ჩანართი:</h2>
+                                <div className="checkboxes--container">
+                                    <div className="checkbox-wrapper">
+                                        <input type="checkbox" id="html" />
+                                        <label htmlFor="html"><span>დღგ (თვის)</span></label>
+                                    </div>
+                                    <div className="checkbox-wrapper">
+                                        <input type="checkbox" id="html1" />
+                                        <label htmlFor="html1"><span>მოგება (თვის)</span></label>
+                                    </div>
+                                    <div className="checkbox-wrapper">
+                                        <input type="checkbox" id="html2" />
+                                        <label htmlFor="html2"><span>აქციზი (თვის)</span></label>
+                                    </div>
+                                    <div className="checkbox-wrapper">
+                                        <input type="checkbox" id="html3" />
+                                        <label htmlFor="html3"><span>მოგება (წლის)</span></label>
+                                    </div>
+                                    <div className="checkbox-wrapper">
+                                        <input type="checkbox" id="html4" />
+                                        <label htmlFor="html4"><span>გადახდის წყაროსთან დაკავებული გადასახადი (თვის)</span></label>
+                                    </div>
+                                    <div className="checkbox-wrapper">
+                                        <input type="checkbox" id="html5" />
+                                        <label htmlFor="html5"><span>საშემოსავლო (წლის)</span></label>
+                                    </div>
+                                    <div className="checkbox-wrapper">
+                                        <input type="checkbox" id="html6" />
+                                        <label htmlFor="html6"><span>მცირე ბიზნესის საშემოსავლო (თვის)</span></label>
+                                    </div>
 
 
-            {currentStep === 5 && (
-                <div className="w-100 h-100 d-flex justify-content-center align-items-center">
-                    <div>
-                        <div className="d-flex flex-column align-items-center step3">
-                            <h2 className='text-center mb-4'>შეავსეთ ინფორმაციული <br></br> ჩანართი:</h2>
 
-                            <div className="customSelects--container">
-                                <Box className="userCard--customselect">
-                                    <FormControl fullWidth>
-                                        <InputLabel id="demo-simple-select-label">რეგიონი</InputLabel>
-                                        <Select
-                                            labelId="demo-simple-select-label"
-                                            id="demo-simple-select"
-                                            value={age}
-                                            label="რეგიონი"
-                                            IconComponent={CustomDropdownIcon}
-                                            onChange={handleChange}
-                                        >
-                                            {names.map((name) => {
-                                                return <MenuItem value={name}>{name}</MenuItem>
-                                            })}
-                                        </Select>
-                                    </FormControl>
-                                </Box>
-                                <Box className="userCard--customselect">
-                                    <FormControl fullWidth>
-                                        <InputLabel id="demo-simple-select-label">რაიონი/ქალაქი</InputLabel>
-                                        <Select
-                                            labelId="demo-simple-select-label"
-                                            id="demo-simple-select"
-                                            value={age}
-                                            label="რაიონი/ქალაქი"
-                                            IconComponent={CustomDropdownIcon}
-                                            onChange={handleChange}
-                                        >
-                                            {names.map((name) => {
-                                                return <MenuItem value={name}>{name}</MenuItem>
-                                            })}
-                                        </Select>
-                                    </FormControl>
-                                </Box>
-                                <Box className="userCard--customselect">
-                                    <FormControl fullWidth>
-                                        <InputLabel id="demo-simple-select-label">ქუჩა/სოფელი</InputLabel>
-                                        <Select
-                                            labelId="demo-simple-select-label"
-                                            id="demo-simple-select"
-                                            value={age}
-                                            label="ქუჩა/სოფელი"
-                                            IconComponent={CustomDropdownIcon}
-                                            onChange={handleChange}
-                                        >
-                                            {names.map((name) => {
-                                                return <MenuItem value={name}>{name}</MenuItem>
-                                            })}
-                                        </Select>
-                                    </FormControl>
-                                </Box>
-                                <Box className="userCard--customselect">
-                                    <FormControl fullWidth>
-                                        <InputLabel id="demo-simple-select-label">შენობა/ობიექტის N</InputLabel>
-                                        <Select
-                                            labelId="demo-simple-select-label"
-                                            id="demo-simple-select"
-                                            value={age}
-                                            label="შენობა/ობიექტის N"
-                                            IconComponent={CustomDropdownIcon}
-                                            onChange={handleChange}
-                                        >
-                                            {names.map((name) => {
-                                                return <MenuItem value={name}>{name}</MenuItem>
-                                            })}
-                                        </Select>
-                                    </FormControl>
-                                </Box>
-                            </div>
-                            <button className="usercard--submitBtn" onClick={handleNextStep}>გაგრძელება</button>
-                        </div>
-                    </div>
-                </div>
-
-            )}
-
-            {currentStep === 6 && (
-                <div className="w-100 h-100 d-flex justify-content-center align-items-center">
-                    <div>
-                        <div className="d-flex flex-column align-items-center step3">
-
-                            <div className="customSelects--container">
-                                <Box className="userCard--customselect">
-                                    <FormControl fullWidth>
-                                        <InputLabel id="demo-simple-select-label">ძირითადი საქმიანობა</InputLabel>
-                                        <Select
-                                            labelId="demo-simple-select-label"
-                                            id="demo-simple-select"
-                                            value={age}
-                                            label="ძირითადი საქმიანობა"
-                                            IconComponent={CustomDropdownIcon}
-                                            onChange={handleChange}
-                                        >
-                                            {names.map((name) => {
-                                                return <MenuItem value={name}>{name}</MenuItem>
-                                            })}
-                                        </Select>
-                                    </FormControl>
-                                </Box>
-                                <Box className="userCard--customselect">
-                                    <FormControl fullWidth>
-                                        <InputLabel id="demo-simple-select-label">დამატებითი საქმიანობები</InputLabel>
-                                        <Select
-                                            labelId="demo-simple-select-label"
-                                            id="demo-simple-select"
-                                            value={age}
-                                            label="დამატებითი საქმიანობები"
-                                            IconComponent={CustomDropdownIcon}
-                                            onChange={handleChange}
-                                        >
-                                            {names.map((name) => {
-                                                return <MenuItem value={name}>{name}</MenuItem>
-                                            })}
-                                        </Select>
-                                    </FormControl>
-                                </Box>
-
-                            </div>
-                            <button className="usercard--submitBtn" onClick={handleNextStep}>გაგრძელება</button>
-                        </div>
-                    </div>
-                </div>
-
-            )}
-
-            {currentStep === 7 && (
-                <div className="w-100 h-100 d-flex justify-content-center align-items-center step7">
-                    <div>
-                        <div className="d-flex flex-column align-items-center">
-                            <h2 className='text-center mb-4'>შეავსეთ ინფორმაციული <br></br> ჩანართი:</h2>
-                            <div className="checkboxes--container">
-                                <div className="checkbox-wrapper">
-                                    <input type="checkbox" id="html" />
-                                    <label htmlFor="html"><span>დღგ (თვის)</span></label>
                                 </div>
-                                <div className="checkbox-wrapper">
-                                    <input type="checkbox" id="html1" />
-                                    <label htmlFor="html1"><span>მოგება (თვის)</span></label>
-                                </div>
-                                <div className="checkbox-wrapper">
-                                    <input type="checkbox" id="html2" />
-                                    <label htmlFor="html2"><span>აქციზი (თვის)</span></label>
-                                </div>
-                                <div className="checkbox-wrapper">
-                                    <input type="checkbox" id="html3" />
-                                    <label htmlFor="html3"><span>მოგება (წლის)</span></label>
-                                </div>
-                                <div className="checkbox-wrapper">
-                                    <input type="checkbox" id="html4" />
-                                    <label htmlFor="html4"><span>გადახდის წყაროსთან დაკავებული გადასახადი (თვის)</span></label>
-                                </div>
-                                <div className="checkbox-wrapper">
-                                    <input type="checkbox" id="html5" />
-                                    <label htmlFor="html5"><span>საშემოსავლო (წლის)</span></label>
-                                </div>
-                                <div className="checkbox-wrapper">
-                                    <input type="checkbox" id="html6" />
-                                    <label htmlFor="html6"><span>მცირე ბიზნესის საშემოსავლო (თვის)</span></label>
-                                </div>
-
-
-
-                            </div>
-                            <button className="usercard--submitBtn" onClick={handleNextStep}>გაგრძელება</button>
-                        </div>
-                    </div>
-                </div>
-
-            )}
-
-            {currentStep === 8 && (
-                <div className="w-100 h-100 d-flex justify-content-center align-items-center ">
-                    <div>
-                        <div className="d-flex flex-column align-items-center">
-                            <h2 className='text-center mb-4'>ობიექტების ჩამონათვალი :</h2>
-                            <div className="checkboxes--container">
-                                <div className="checkbox-wrapper">
-                                    <input type="checkbox" id="html" />
-                                    <label htmlFor="html"><span>არ ვფლობ  ობიექტს</span></label>
-                                </div>
-
-
-
-
-                            </div>
-                            <button className="usercard--submitBtn" onClick={handleNextStep}>გაგრძელება</button>
-                        </div>
-                    </div>
-                </div>
-
-            )}
-            {currentStep === 9 && (
-                <div className="w-100 h-100 d-flex justify-content-center align-items-center">
-                    <div>
-                        <div className="d-flex flex-column align-items-center ">
-                            <h2 className='step--success'>დაგველოდე, მიმდინარეობს <br></br>
-                                რს-ზე ვალიდაცია</h2>
-                            <div className='loader--container'>
-                                <svg width="155" height="154" viewBox="0 0 155 154" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="70.7695" width="12.5415" height="40.2474" fill="#FF6D1B" />
-                                    <rect x="71.666" y="113.588" width="12.5415" height="40.2474" fill="#FF9052" />
-                                    <rect width="12.5309" height="40.2813" transform="matrix(0.688531 -0.725207 0.726305 0.687372 16.125 29.6582)" fill="#FD7224" />
-                                    <rect width="12.5326" height="40.2759" transform="matrix(0.74737 0.664409 -0.665594 0.746314 49.2031 101.961)" fill="#FF833D" />
-                                    <rect width="12.5214" height="40.3118" transform="matrix(-0.00357863 -0.999994 0.999994 -0.00356721 0.0449219 84.2168)" fill="#FF7F37" />
-                                    <rect width="12.5214" height="40.3118" transform="matrix(0.00187608 0.999998 -0.999998 0.00187009 154.977 71.5508)" fill="#FDB58D" />
-                                    <rect width="12.5311" height="40.2806" transform="matrix(-0.696529 0.717528 -0.71864 -0.695382 135.32 128.182)" fill="#FC9D68" />
-                                    <rect width="12.5316" height="40.2792" transform="matrix(0.712852 0.701314 -0.702453 0.71173 128.625 17.8887)" fill="#FFCDB0" />
-                                </svg>
+                                <button className="usercard--submitBtn" onClick={handleNextStep}>გაგრძელება</button>
                             </div>
                         </div>
                     </div>
-                </div>
 
-            )}
-            {currentStep === 10 && (
-                <div className="w-100 h-100 d-flex justify-content-center align-items-center">
-                    <div>
-                        <div className="d-flex flex-column align-items-center ">
-                            <h2 className='step--success'>თქვენ წარმატებით გაიარეთ RS-<br></br>ზე ვალიდაცია და შეგიძლიათ <br></br> შეავსოთ დეკლარაცია</h2>
-                            <button className="usercard--submitBtn" onClick={handleNextStep}>გაგრძელება</button>
+                )}
 
+                {currentStep === 8 && (
+                    <div className="w-100 h-100 d-flex justify-content-center align-items-center ">
+                        <div>
+                            <div className="d-flex flex-column align-items-center">
+                                <h2 className='text-center mb-4'>ობიექტების ჩამონათვალი :</h2>
+                                <div className="checkboxes--container">
+                                    <div className="checkbox-wrapper">
+                                        <input type="checkbox" id="html" />
+                                        <label htmlFor="html"><span>არ ვფლობ  ობიექტს</span></label>
+                                    </div>
+
+
+
+
+                                </div>
+                                <button className="usercard--submitBtn" onClick={handleNextStep}>გაგრძელება</button>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-            )}
+                )}
+                {currentStep === 9 && (
+                    <div className="w-100 h-100 d-flex justify-content-center align-items-center">
+                        <div>
+                            <div className="d-flex flex-column align-items-center ">
+                                <h2 className='step--success'>დაგველოდე, მიმდინარეობს <br></br>
+                                    რს-ზე ვალიდაცია</h2>
+                                <div className='loader--container'>
+                                    <svg width="155" height="154" viewBox="0 0 155 154" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect x="70.7695" width="12.5415" height="40.2474" fill="#FF6D1B" />
+                                        <rect x="71.666" y="113.588" width="12.5415" height="40.2474" fill="#FF9052" />
+                                        <rect width="12.5309" height="40.2813" transform="matrix(0.688531 -0.725207 0.726305 0.687372 16.125 29.6582)" fill="#FD7224" />
+                                        <rect width="12.5326" height="40.2759" transform="matrix(0.74737 0.664409 -0.665594 0.746314 49.2031 101.961)" fill="#FF833D" />
+                                        <rect width="12.5214" height="40.3118" transform="matrix(-0.00357863 -0.999994 0.999994 -0.00356721 0.0449219 84.2168)" fill="#FF7F37" />
+                                        <rect width="12.5214" height="40.3118" transform="matrix(0.00187608 0.999998 -0.999998 0.00187009 154.977 71.5508)" fill="#FDB58D" />
+                                        <rect width="12.5311" height="40.2806" transform="matrix(-0.696529 0.717528 -0.71864 -0.695382 135.32 128.182)" fill="#FC9D68" />
+                                        <rect width="12.5316" height="40.2792" transform="matrix(0.712852 0.701314 -0.702453 0.71173 128.625 17.8887)" fill="#FFCDB0" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                )}
+                {currentStep === 10 && (
+                    <div className="w-100 h-100 d-flex justify-content-center align-items-center">
+                        <div>
+                            <div className="d-flex flex-column align-items-center ">
+                                <h2 className='step--success'>თქვენ წარმატებით გაიარეთ RS-<br></br>ზე ვალიდაცია და შეგიძლიათ <br></br> შეავსოთ დეკლარაცია</h2>
+                                <button className="usercard--submitBtn" onClick={() => router.push('/user')}>გაგრძელება</button>
+                            </div>
+                        </div>
+                    </div>
+
+                )}
 
 
 
-            {currentStep === 11 && (
-                <h2 className='step--success'>დეკლარაციები</h2>
-            )}
 
-        </div>
 
-        <div className="userCard declarations d-none">
-            <div className="declarations--tablewrapper">
-
-                {props.userInfo?.value?.map((user) => {
-
-                    return <p>{user.Id} ,{user.Status} ,{formatDate(user.CreationTime)}</p>
-                })}
-                <table className='table'>
-                    <thead>
-                        <tr>
-                            <th>
-                                კომპანია
-                            </th>
-                            <th>თარიღი</th>
-                            <th>თანხა</th>
-                            <th>ვალუტა</th>
-                            <th>თანხა ლარში</th>
-                            <th>რედაქტირება </th>
-                            <th> წაშლა</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>    ...</td>
-                            <td><img src="/assets/images/calendar_add_on.svg" alt="" /></td>
-                            <td>    ...</td>
-                            <td><img src="assets/images/triangle.svg" alt="" /></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>კომპანია 45</td>
-                            <td>18.09.2023</td>
-                            <td>20</td>
-                            <td>GEL</td>
-                            <td>20</td>
-                            <td><img src="/assets/images/redaction.svg" alt="" /></td>
-                            <td><img src="/assets/images/deletion.svg" alt="" /></td>
-                        </tr>
-                        <tr>
-                            <td>კომპანია 45</td>
-                            <td>18.09.2023</td>
-                            <td>20</td>
-                            <td>GEL</td>
-                            <td>20</td>
-                            <td><img src="/assets/images/redaction.svg" alt="" /></td>
-                            <td><img src="/assets/images/deletion.svg" alt="" /></td>
-                        </tr>
-                        <tr>
-                            <td>კომპანია 45</td>
-                            <td>18.09.2023</td>
-                            <td>20</td>
-                            <td>GEL</td>
-                            <td>20</td>
-                            <td><img src="/assets/images/redaction.svg" alt="" /></td>
-                            <td><img src="/assets/images/deletion.svg" alt="" /></td>
-                        </tr>
-                        <tr>
-                            <td>კომპანია 45</td>
-                            <td>18.09.2023</td>
-                            <td>20</td>
-                            <td>GEL</td>
-                            <td>20</td>
-                            <td><img src="/assets/images/redaction.svg" alt="" /></td>
-                            <td><img src="/assets/images/deletion.svg" alt="" /></td>
-                        </tr>
-                        <tr>
-                            <td>კომპანია 45</td>
-                            <td>18.09.2023</td>
-                            <td>20</td>
-                            <td>GEL</td>
-                            <td>20</td>
-                            <td><img src="/assets/images/redaction.svg" alt="" /></td>
-                            <td><img src="/assets/images/deletion.svg" alt="" /></td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
-        </div>
-    </div >
+            {currentStep === 11 && (
+                // <h2 className='step--success'>დეკლარაციები</h2>
+
+                <div className="userCard declarations">
+                    <div className="declarations--tablewrapper">
+
+                        {/* {props.userInfo?.value?.map((user) => {
+
+                        return <p>{user.Id} ,{user.Status} ,{formatDate(user.CreationTime)}</p>
+                    })} */}
+                        <table className='table'>
+                            <thead>
+                                <tr>
+                                    <th>
+                                        კომპანია
+                                    </th>
+                                    <th>თარიღი</th>
+                                    <th>თანხა</th>
+                                    <th>ვალუტა</th>
+                                    <th>თანხა ლარში</th>
+                                    <th>რედაქტირება </th>
+                                    <th> წაშლა</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>    ...</td>
+                                    <td><img src="/assets/images/calendar_add_on.svg" alt="" /></td>
+                                    <td>    ...</td>
+                                    <td><img src="/assets/images/triangle.svg" alt="" /></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>კომპანია 45</td>
+                                    <td>18.09.2023</td>
+                                    <td>20</td>
+                                    <td>GEL</td>
+                                    <td>20</td>
+                                    <td><img src="/assets/images/redaction.svg" alt="" /></td>
+                                    <td><img src="/assets/images/deletion.svg" alt="" /></td>
+                                </tr>
+                                <tr>
+                                    <td>კომპანია 45</td>
+                                    <td>18.09.2023</td>
+                                    <td>20</td>
+                                    <td>GEL</td>
+                                    <td>20</td>
+                                    <td><img src="/assets/images/redaction.svg" alt="" /></td>
+                                    <td><img src="/assets/images/deletion.svg" alt="" /></td>
+                                </tr>
+                                <tr>
+                                    <td>კომპანია 45</td>
+                                    <td>18.09.2023</td>
+                                    <td>20</td>
+                                    <td>GEL</td>
+                                    <td>20</td>
+                                    <td><img src="/assets/images/redaction.svg" alt="" /></td>
+                                    <td><img src="/assets/images/deletion.svg" alt="" /></td>
+                                </tr>
+                                <tr>
+                                    <td>კომპანია 45</td>
+                                    <td>18.09.2023</td>
+                                    <td>20</td>
+                                    <td>GEL</td>
+                                    <td>20</td>
+                                    <td><img src="/assets/images/redaction.svg" alt="" /></td>
+                                    <td><img src="/assets/images/deletion.svg" alt="" /></td>
+                                </tr>
+                                <tr>
+                                    <td>კომპანია 45</td>
+                                    <td>18.09.2023</td>
+                                    <td>20</td>
+                                    <td>GEL</td>
+                                    <td>20</td>
+                                    <td><img src="/assets/images/redaction.svg" alt="" /></td>
+                                    <td><img src="/assets/images/deletion.svg" alt="" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            )}
+        </div >
     </>
 }

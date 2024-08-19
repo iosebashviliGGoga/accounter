@@ -1317,4 +1317,5 @@ input[type="number"] {
 
 .code--error{
   left: 50% !important; 
+  top: -20px;
 }

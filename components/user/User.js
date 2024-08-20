@@ -750,12 +750,12 @@ export default function User(props) {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                {/* <tr>
                                     <td>    ...</td>
                                     <td><img src="/assets/images/calendar_add_on.svg" alt="" /></td>
                                     <td>    ...</td>
                                     <td><img src="/assets/images/triangle.svg" alt="" /></td>
-                                </tr>
+                                </tr> */}
                                 <tr>
                                     <td></td>
                                     <td></td>

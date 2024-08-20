@@ -1105,9 +1105,9 @@ section.user {
   background-color: transparent;
 }
 
-.declarations table tr:first-child td {
+/* .declarations table tr:first-child td {
   background-color: white;
-}
+} */
 
 .declarations table img {
   cursor: pointer;
@@ -1268,54 +1268,108 @@ input[type="number"] {
   gap: 5px;
 }
 
-.radio-label input{
+.radio-label input {
   margin-bottom: 5px;
 }
-.year-selector{
+
+.year-selector {
   color: var(--main-green);
   margin-left: 25px;
   display: flex;
   gap: 5px;
 }
-.year-selector button{
+
+.year-selector button {
   font-size: 22px;
   font-weight: bold;
   color: var(--main-green);
 }
-.year-button:not(.active){
+
+.year-button:not(.active) {
   opacity: 0.8;
 }
 
 .declarations--years.declarations table tr:first-child td {
   background-color: transparent;
 }
-.declarations--years.declarations table td,.declarations--years.declarations table th{
+
+.declarations--years.declarations table td,
+.declarations--years.declarations table th {
   color: var(--main-green);
 }
-.declarations--years.declarations table th:last-child{
+
+.declarations--years.declarations table th:last-child {
   color: var(--main-orange);
 }
-.declarations--years.declarations table td:last-child{
+
+.declarations--years.declarations table td:last-child {
   background-color: #F7DFD1;
 }
-.declarations--years.declarations table td{
+
+.declarations--years.declarations table td {
   font-size: 15px;
 }
-.declarations--years.declarations table th{
+
+.declarations--years.declarations table th {
   font-size: 18px;
 }
-.declarations .declarations--tablewrapper{
+
+.declarations .declarations--tablewrapper {
   margin-inline: 75px;
 }
+
 .declarations {
   height: calc(100vh - 107px - 40px - 40px - 48px - 75px);
   min-height: 385px;
 }
-.error-password{
+
+.error-password {
   text-align: center;
 }
 
-.code--error{
-  left: 50% !important; 
+.code--error {
+  left: 50% !important;
   top: -20px;
+}
+
+.userCard.declarations {
+  position: relative;
+}
+
+.userCard.declarations .declaration--buttons {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+  
+}
+.usercard--submitBtn__secondary{
+  width: auto;
+  padding: 10px 20px;
+  padding-top: 13px;
+  background-color: var(--main-green);
+  border: 2px solid var(--main-green) !important;
+  border: none;
+}
+.usercard--submitBtn__secondary:hover{
+  background-color: transparent !important;
+  color: var(--main-green) !important;
+}
+
+.modal-body .code--error{
+  position: static !important;
+  transform: unset !important;
+}
+
+
+
+.declarations--modal .modal-content{
+  padding-inline: 85px;
+}
+.declarations--modal  .modal-title{
+    color: var(--main-green);
+    margin-top: 50px;
+    font-size: 28px;
 }

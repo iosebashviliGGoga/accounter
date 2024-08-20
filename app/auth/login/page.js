@@ -77,7 +77,7 @@ export default function Page() {
     const email = document.querySelector('input[name="email"]').value;
     const password = document.querySelector('input[name="password"]').value;
 
-    console.log(email,password)
+    console.log(email, password)
     if (email == '' || password == '') {
       setError(0)
       setFillError(1)
@@ -99,17 +99,17 @@ export default function Page() {
         if (response.ok) {
           const data = await response.json();
           console.log('Success:', data);
-          if (!data.success) { 
+          if (!data.success) {
             setError(1)
             setFillError(0)
             document.querySelector('.auth--form__header .error-password').textContent = data.message
 
-           } else{
+          } else {
             setError(0)
             setFillError(0)
             localStorage.setItem('user', JSON.stringify(data.user));
-            router.push('/user/profile')
-           }
+            router.push('/user')
+          }
           // Handle successful registration (e.g., navigate to the next step)
         } else {
           console.error('Error:', response.statusText);
@@ -134,12 +134,12 @@ export default function Page() {
             ელ-ფოსტა ან პაროლი არასწორია!
           </p>
           <p className={`error-password ${!fillerror ? "d-none" : ""}`}>
-           გთხოვთ, შეავსეთ ყველა ველი
+            გთხოვთ, შეავსეთ ყველა ველი
           </p>
         </h3>
         <div>
-          <input type="text" name="email" className="form-control" placeholder="ელ-ფოსტა"  />
-          <input type="password" name="password" className="form-control mb-4" placeholder="პაროლი"  />
+          <input type="text" name="email" className="form-control" placeholder="ელ-ფოსტა" />
+          <input type="password" name="password" className="form-control mb-4" placeholder="პაროლი" />
           <p>
             <Link href="" className="toReset--link">
               დაგავიწყდა პაროლი?

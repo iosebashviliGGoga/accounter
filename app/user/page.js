@@ -268,13 +268,70 @@ export default function Page() {
     const hanldeRSDeclaration = async () => {
         setShow2(false)
         setCurrentStep(1)
+
+        const storedUser = JSON.parse(localStorage.getItem('user'));
+
+
+        try {
+            const response = await fetch('https://dev.proservice.ge/accounnter/api/login.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    // email:"goga123s@gmail.com",
+                    // password:"goga123",
+                    user: {
+                        email: storedUser.email,
+                    },
+                    action: "completeDeclaration"
+                })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Success:', data);
+                console.log(data,data.success, data.success == true,data.getQueueItemData.Status)
+                if (data.success) {
+                    console.log('in data.succes')
+                    if(data.getQueueItemData.Status	== 'Successful'){
+                        console.log('in data.getQueueItemData.Status')
+                        setCurrentStep(2)
+                    } else{
+                        setCurrentStep(0)
+                    }
+                    
+                //    document.querySelector('.auth--form__header .error-password').textContent = data.message
+
+                } else {
+                    //   setError(0)
+                    //   setFillError(0)
+                   
+                    document.querySelector('.auth--form__header .error-password').textContent = data.message
+                    //   router.push('/user/profile')
+                }
+                // Handle successful registration (e.g., navigate to the next step)
+            } else {
+                console.error('Error:', response.statusText);
+                alert('Registration failed. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again later.');
+        }
+
+
+
+
+
+
     }
 
     const handleRSsms = async (e) => {
         const storedUser = JSON.parse(localStorage.getItem('user'));
         const smsValue = document.querySelector('#smsV').value
-        setLoading(1)
-        setCurrentStep(0)
+        
+        setCurrentStep(1)
         try {
             const response = await fetch('https://dev.proservice.ge/accounnter/api/sms_verify.php', {
                 method: 'POST',
@@ -291,7 +348,7 @@ export default function Page() {
                         "SpecificContent": {
                             "code": smsValue
                         },
-                        "Reference": referenceId,
+                      
                         "Progress": "new"
                     },
                     // "access_token": localStorage.getItem('access_token')
@@ -310,9 +367,9 @@ export default function Page() {
                     //  console.log(data.authItemData.Reference, data.authItemData.Id)
                     //  let referenceFor11tve = data.authItemData.Reference
                     //  let idFor11tve = data.authItemData.Id
+                    setCurrentStep(3)
 
-
-                    handleFirst11Fetch()
+                    
                 } else {
                     setLoading(0)
                     setCurrentStep(4)
@@ -488,7 +545,7 @@ export default function Page() {
                 )}
                 {currentStep === 3 && (
                     <div className="userCard">
-                        <div className="w-100 h-100 d-flex justify-content-center align-items-center">
+                        <div className="w-100 h-100 d-flex justify-content-center align-items-center px-5">
                             <div>
                                 <div className="d-flex flex-column align-items-center ">
                                     <h2 className='step--success'>დეკლარაციის შევსებით შემდეგ, ნომერზე მიიღებთ დამადასტურებელ მესიჯს</h2>

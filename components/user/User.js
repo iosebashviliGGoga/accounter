@@ -179,7 +179,7 @@ export default function User(props) {
     // const [referenceFor11tve,setReferenceFor11tve] = useState()
     // const [idFor11tve,setIdFor11tve] = useState()
     const [rsSMSerror, setRsSMSerror] = useState('')
-    const [SMSError,setSMSError] = useState(0)
+    const [SMSError, setSMSError] = useState(0)
     const handleRSsms = async (e) => {
         const storedUser = JSON.parse(localStorage.getItem('user'));
         const smsValue = document.querySelector('#smsV').value
@@ -216,21 +216,21 @@ export default function User(props) {
 
                 //        setLoading(0)
                 //        setCurrentStep(10)
-                if(data.authItemData.Status == 'Successful'){
-                  //  console.log(data.authItemData.Reference, data.authItemData.Id)
-                  //  let referenceFor11tve = data.authItemData.Reference
-                  //  let idFor11tve = data.authItemData.Id
-    
-    
+                if (data.authItemData.Status == 'Successful') {
+                    //  console.log(data.authItemData.Reference, data.authItemData.Id)
+                    //  let referenceFor11tve = data.authItemData.Reference
+                    //  let idFor11tve = data.authItemData.Id
+
+
                     handleFirst11Fetch()
-                } else{
+                } else {
                     setLoading(0)
                     setCurrentStep(4)
                     setSMSError(1)
                     setFillError(0)
                     setRsSMSerror(data.message)
                 }
-                
+
 
                 // Handle successful registration (e.g., navigate to the next step)
             } else {
@@ -244,7 +244,7 @@ export default function User(props) {
     }
 
 
-    
+
     const handleFirst11Fetch = async () => {
         const storedUser = JSON.parse(localStorage.getItem('user'));
         setLoading(1)
@@ -315,10 +315,10 @@ export default function User(props) {
                     document.querySelector('.auth--form__header .error-password').textContent = data.message
 
                 } else {
-                 //   setError(0)
-                 //   setFillError(0)
+                    //   setError(0)
+                    //   setFillError(0)
                     localStorage.setItem('user', JSON.stringify(data.user));
-                 //   router.push('/user/profile')
+                    //   router.push('/user/profile')
                 }
                 // Handle successful registration (e.g., navigate to the next step)
             } else {

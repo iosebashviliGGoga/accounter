@@ -35,7 +35,7 @@ export default function Home() {
             id="howItWorksTabs"
             fill
           >
-            <Tab eventKey="step1" title="Step 1">
+            <Tab eventKey="step1" title="რეგისტრაცია">
               <div>
                 <img src={`/assets/images/image 9.png`} alt="" className='img-fluid' />
                 <p>
@@ -44,7 +44,7 @@ export default function Home() {
 
               </div>
             </Tab>
-            <Tab eventKey="step2" title="Step 2">
+            <Tab eventKey="step2" title="შემოსავლების ჟურნალი">
               <div>
 
                 <p>
@@ -53,7 +53,7 @@ export default function Home() {
                 <img src={`/assets/images/sqrini 1 1.png`} alt="" className='img-fluid' />
               </div>
             </Tab>
-            <Tab eventKey="step3" title="Step 3">
+            <Tab eventKey="step3" title="სალაროს ინფორმაცია">
               <div>
                 <img src={`/assets/images/sqrini 2 1.png`} alt="" className='img-fluid' />
                 <p>
@@ -62,7 +62,7 @@ export default function Home() {
 
               </div>
             </Tab>
-            <Tab eventKey="step4" title="Step 4">
+            <Tab eventKey="step4" title="დეკლარაციის შევსება">
               <div>
 
                 <p>
@@ -85,7 +85,7 @@ export default function Home() {
           <div className="choosePackage--cards">
             <div className="choosePackage--card">
               <h2>
-                7 ლარი <span>/ თვე</span>
+                9 ლარი <span>/ თვე</span>
               </h2>
               <ul>
                 <li>  <img src={`/assets/images/check.svg`} alt="" className='img-fluid' />   მცირე მეწარმის დეკლარაციის შევსება</li>

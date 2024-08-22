@@ -191,6 +191,7 @@
         width: 265px;
         transition: 0.3s;
         padding-block: 50px;
+        z-index: 555;
     }
 
     .userSidebar.userSidebar--active {
@@ -493,6 +494,62 @@
 
     .step7 {
         padding-top: 20px;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 992px){
+    .auth--form{
+        padding-bottom: 40px;
+    }
+    .auth--form .mt-5.mb-4{
+        margin-bottom: 0 !important;
+    }
+    .auth .container{
+        padding-inline: 20px;
+    }
+    .registration{
+        width: 100%;
+    }
+    .error-password{
+        font-size: 15px;
+    }
+    .login{
+        width: 100%;
+    }
+    .userCard{
+        height: auto !important;
+        max-height: unset !important;
+    }
+    .declarations .declarations--tablewrapper{
+        margin-inline: 0;
+        overflow-x: auto;
+    }
+    .userCard.declarations .declaration--buttons{
+        width: 90%;
+        flex-direction: column;
+    }
+    .usercard--monthly{
+        padding-bottom: 160px;
+    }
+    .usercard--submitBtn{
+        padding-inline: 8px;
+    }
+    .message--modal .modal-dialog{
+        transform: translateY(-50%) !important;
+    }
+    .choosePackage--card .btn--green{
+        padding: 15px 20px 12px 20px;
+        width: 100%;
     }
 
 }

@@ -53,7 +53,7 @@ export default function Page() {
         setSelectedOption(event.target.value);
     };
 
-
+    const [structure, setStrucutre] = useState(false)
     const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
     const [currentMonthIndex, setCurrentMonthIndex] = useState(new Date().getMonth());
     const [selectedOption, setSelectedOption] = useState(1); // 1 for year, 0 for month
@@ -80,34 +80,76 @@ export default function Page() {
 
                 if (response.ok) {
                     const data = await response.json();
-                    const outputData = data?.declaration_data?.OutputData;
-                    if (outputData) {
-                        const parsedOutputData = JSON.parse(outputData);
-                        const expensesString = parsedOutputData.DynamicProperties?.['11TvisShemosavali'] || '';
-                        const expensesArray = expensesString.split(',').filter(expense => expense !== '');
+                    console.log(data);
 
-                        const expensesObject = {};
-                        const yearsSet = new Set();
+                    if (data.structure === true) {
+                        setStrucutre(true)
+                        const expensesArray = Object.values(data); // Convert the object to an array
+                        const expensesObject = {}; // Declare expensesObject
+                        const yearsSet = new Set(); // Declare yearsSet
 
                         expensesArray.forEach(expense => {
-                            const [date, amount] = expense.split('-');
-                            const [day, month, year] = date.split('/').map(Number); // Manually parse the date
-                            yearsSet.add(year); // Add year to the Set
+                            if (typeof expense === 'object' && expense.date) { // Ensure we only process valid expense objects
+                                const date = expense.date;
+                                const value = parseFloat(expense.value) || 0;
+                                const cashRegister = expense.cash_register || '0';
+                                const overhead = expense.overhead || '0';
 
-                            if (!expensesObject[year]) {
-                                expensesObject[year] = {};
+                                const [year, month] = date.split('-').map(Number);
+
+                                // If not already present, initialize the year in expensesObject
+                                if (!expensesObject[year]) {
+                                    expensesObject[year] = {};
+                                }
+
+                                // Set the data for the corresponding month
+                                expensesObject[year][month - 1] = {
+                                    value,
+                                    cash_register: cashRegister,
+                                    overhead
+                                };
+
+                                // Add the year to the Set
+                                yearsSet.add(year);
                             }
-
-                            // Months are 0-indexed in JavaScript, so adjust accordingly
-                            expensesObject[year][month - 1] = parseFloat(amount) || 0;
                         });
 
                         setMonthlyExpenses(expensesObject);
                         setYears([...yearsSet]); // Convert Set to array and set years
                         const yearsArray = [...yearsSet];
                         setCurrentYear(yearsArray[yearsArray.length - 1]);
+                    } else {
+                        const outputData = data?.declaration_data?.OutputData;
+                        if (outputData) {
+                            const parsedOutputData = JSON.parse(outputData);
+                            const expensesString = parsedOutputData.DynamicProperties?.['11TvisShemosavali'] || '';
+                            const expensesArray = expensesString.split(',').filter(expense => expense !== '');
+
+                            const expensesObject = {}; // Declare expensesObject
+                            const yearsSet = new Set(); // Declare yearsSet
+
+                            expensesArray.forEach(expense => {
+                                const [date, amount] = expense.split('-');
+                                const [day, month, year] = date.split('/').map(Number); // Manually parse the date
+                                yearsSet.add(year); // Add year to the Set
+
+                                if (!expensesObject[year]) {
+                                    expensesObject[year] = {};
+                                }
+
+                                // Months are 0-indexed in JavaScript, so adjust accordingly
+                                expensesObject[year][month - 1] = parseFloat(amount) || 0;
+                            });
+
+                            setMonthlyExpenses(expensesObject);
+                            setYears([...yearsSet]); // Convert Set to array and set years
+                            const yearsArray = [...yearsSet];
+                            setCurrentYear(yearsArray[yearsArray.length - 1]);
+                        }
                     }
-                } else {
+                }
+
+                else {
                     console.error('Error:', response.statusText);
                     alert('Failed to fetch data. Please try again.');
                 }
@@ -135,6 +177,22 @@ export default function Page() {
     const handleClose2 = () => setShow2(false);
     const handleShow2 = () => setShow2(true);
     const [showError2, setShowError2] = useState(false);
+
+    const [show3, setShow3] = useState(false);
+    const handleClose3 = () => setShow3(false);
+    const handleShow3 = () => setShow3(true);
+    const [companyTimeEdit, setCompanyTimeEdit] = useState('');
+    const [companyNameEdit, setCompanyNameEdit] = useState('');
+    const [numberValueEdit, setNumberValueEdit] = useState('');
+    const [IDEdit, setIDEdit] = useState(0);
+    const openEditModal = (item) => {
+        handleShow3()
+        console.log(item)
+        setCompanyNameEdit(item.company_name)
+        setCompanyTimeEdit(item.declaration_date.split(' ')[0])
+        setNumberValueEdit(item.gel_amount)
+        setIDEdit(item.id)
+    }
 
     const [dateValue, setDateValue] = useState('');
     const [companyName, setCompanyName] = useState('');
@@ -205,6 +263,61 @@ export default function Page() {
         }
     };
 
+    const handleSubmitEdit = async () => {
+        const storedUser = JSON.parse(localStorage.getItem('user'));
+        // Check if any of the inputs are empty
+        if (!companyNameEdit || !numberValueEdit) {
+            setShowError(true);
+            return;
+        }
+
+        setShowError(false);
+
+        // Construct the data object
+        const data = {
+
+            action: "edit",
+            data: {
+                declaration_date: companyTimeEdit,
+                company_name: companyNameEdit,
+                gel_amount: numberValueEdit,
+                id: IDEdit
+            },
+            user: {
+                email: storedUser.email
+            }
+        };
+
+        try {
+            // Send the POST request
+            const response = await fetch('https://dev.proservice.ge/accounnter/api/user_declaration.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            if (response.ok) {
+                // Handle successful submission
+                //  alert('Data submitted successfully');
+                const respo = await response.json();  // Add await here
+                console.log(respo)
+                if (respo.success) {
+
+                    handleClose3(); // Close the modal
+                    populateTable()
+                }
+
+            } else {
+                // Handle server error
+                alert('Failed to submit data');
+            }
+        } catch (error) {
+            // Handle network error
+            alert('An error occurred while submitting the data');
+        }
+    };
 
 
 
@@ -242,10 +355,17 @@ export default function Page() {
                 data.data.forEach(item => {
                     const newRow = table.insertRow();
                     newRow.innerHTML = `
-                    <td>${item.company_name}</td>
-                    <td>${item.declaration_date}</td>
-                    <td>${item.gel_amount}</td>
-                `;
+                        <td>${item.company_name}</td>
+                        <td>${item.declaration_date}</td>
+                        <td>${item.gel_amount}</td>
+                        <td><img src="/assets/images/redaction.svg" alt="Edit" class="edit-icon" /></td>
+                    `;
+
+                    // Attach the onClick event to the last cell (4th cell) in the new row
+                    const editCell = newRow.cells[3]; // 3rd index corresponds to the 4th cell
+                    editCell.addEventListener('click', () => {
+                        openEditModal(item); // Pass item or any required data to the function
+                    });
                 });
 
             })
@@ -291,22 +411,22 @@ export default function Page() {
             if (response.ok) {
                 const data = await response.json();
                 console.log('Success:', data);
-                console.log(data,data.success, data.success == true,data.getQueueItemData.Status)
+                console.log(data, data.success, data.success == true, data.getQueueItemData.Status)
                 if (data.success) {
                     console.log('in data.succes')
-                    if(data.getQueueItemData.Status	== 'Successful'){
+                    if (data.getQueueItemData.Status == 'Successful') {
                         console.log('in data.getQueueItemData.Status')
                         setCurrentStep(2)
-                    } else{
+                    } else {
                         setCurrentStep(0)
                     }
-                    
-                //    document.querySelector('.auth--form__header .error-password').textContent = data.message
+
+                    //    document.querySelector('.auth--form__header .error-password').textContent = data.message
 
                 } else {
                     //   setError(0)
                     //   setFillError(0)
-                   
+
                     document.querySelector('.auth--form__header .error-password').textContent = data.message
                     //   router.push('/user/profile')
                 }
@@ -330,7 +450,7 @@ export default function Page() {
     const handleRSsms = async (e) => {
         const storedUser = JSON.parse(localStorage.getItem('user'));
         const smsValue = document.querySelector('#smsV').value
-        
+
         setCurrentStep(1)
         try {
             const response = await fetch('https://dev.proservice.ge/accounnter/api/sms_verify.php', {
@@ -348,7 +468,7 @@ export default function Page() {
                         "SpecificContent": {
                             "code": smsValue
                         },
-                      
+
                         "Progress": "new"
                     },
                     // "access_token": localStorage.getItem('access_token')
@@ -369,7 +489,7 @@ export default function Page() {
                     //  let idFor11tve = data.authItemData.Id
                     setCurrentStep(3)
 
-                    
+
                 } else {
                     setLoading(0)
                     setCurrentStep(4)
@@ -395,7 +515,7 @@ export default function Page() {
 
 
         <div>
-            <div className={`userCard--wrapper ${selectedOption ? "d-none" : ""}`}>
+            <div className={`userCard--wrapper usercard--monthly ${selectedOption ? "d-none" : ""}`}>
                 <div className={`${currentStep !== 0 ? "d-none" : ""}`}>
                     <div className="month-selector-container">
                         <div className="d-flex align-items-center">
@@ -439,7 +559,7 @@ export default function Page() {
                     </div>
 
                     <div className="userCard declarations">
-                        <div className="declarations--tablewrapper">
+                        <div className="declarations--tablewrapper declarations--monthly">
                             <table className='table' id="monthlyDeclarations">
                                 <thead>
                                     <tr>
@@ -450,8 +570,8 @@ export default function Page() {
                                         {/* <th>თანხა</th> */}
                                         {/* <th>ვალუტა</th> */}
                                         <th>თანხა ლარში</th>
-                                        {/* <th>რედაქტირება </th>
-                                <th> წაშლა</th> */}
+                                        <th>რედაქტირება </th>
+                                        {/* <th> წაშლა</th> */}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -482,7 +602,7 @@ export default function Page() {
                             <div className="declaration--buttons">
                                 <button className="usercard--submitBtn usercard--submitBtn__secondary" onClick={handleShow}>შემოსავლის დამატება</button>
                                 <button className="usercard--submitBtn" onClick={handleShow2}>დეკლარაციის გაგზავნა</button>
-
+                                {/* <button className="usercard--submitBtn">დეკლარაციის გაგზავნა (COMING SOON)</button> */}
                             </div>
                         </div>
                     </div>
@@ -619,16 +739,36 @@ export default function Page() {
                             </tr>
                         </thead>
                         <tbody>
-                            {months.map((month, index) => (
-                                <tr key={index}>
-                                    <td>{month}</td>
-                                    <td>{monthlyExpenses[currentYear]?.[index] || '0'}</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>{monthlyExpenses[currentYear]?.[index] || '0'}</td>
-                                </tr>
-                            ))}
+                            {structure ? (
+                                months.map((month, index) => {
+                                    // Access the data for the current year and month
+                                    const expenseData = monthlyExpenses[currentYear]?.[index] || {
+                                        value: '0',
+                                        cash_register: '0',
+                                        overhead: '0'
+                                    };
 
+                                    return (
+                                        <tr key={index}>
+                                            <td>{month}</td>
+                                            <td>{expenseData.value}</td>
+                                            <td>{expenseData.cash_register}</td>
+                                            <td>{expenseData.overhead}</td>
+                                            <td>{parseFloat(expenseData.value) + parseFloat(expenseData.cash_register)}</td>
+                                        </tr>
+                                    );
+                                })
+                            ) : (
+                                months.map((month, index) => (
+                                    <tr key={index}>
+                                        <td>{month}</td>
+                                        <td>{monthlyExpenses[currentYear]?.[index] || '0'}</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>{monthlyExpenses[currentYear]?.[index] || '0'}</td>
+                                    </tr>
+                                ))
+                            )}
                         </tbody>
                     </table>
                 </div>
@@ -695,6 +835,53 @@ export default function Page() {
                 <div className="d-flex justify-content-center">
                     <button className="usercard--submitBtn" onClick={hanldeRSDeclaration}>
                         დიახ, გააგზავნე დეკლარაცია
+                    </button>
+                </div>
+            </Modal.Body>
+        </Modal>
+
+
+
+        <Modal show={show3} onHide={handleClose3} className="message--modal">
+            <Modal.Header>
+                <Modal.Title>შემოსავლის რედაქტირება</Modal.Title>
+                <img src="/assets/images/close.svg" alt="" onClick={handleClose3} className="message--closeBtn" />
+            </Modal.Header>
+            <Modal.Body>
+                {/* Input for Date (Disabled) */}
+                <div className="form-group">
+                    <label htmlFor="dateInput">თარიღი</label>
+                    <input type="date" id="dateInputEdit" className="form-control" disabled value={companyTimeEdit}/>
+                </div>
+                {/* Input for Company Name */}
+                <div className="form-group">
+                    <label htmlFor="companyName">კომპანიის სახელი</label>
+                    <input
+                        type="text"
+                        id="companyNameEdit"
+                        className="form-control"
+                        value={companyNameEdit}
+                        onChange={(e) => setCompanyNameEdit(e.target.value)}
+                    />
+                </div>
+                {/* Input for Number */}
+                <div className="form-group">
+                    <label htmlFor="numberInput">თანხა ლარში</label>
+                    <input
+                        type="number"
+                        id="numberInput"
+                        className="form-control"
+
+                        value={numberValueEdit}
+                        onChange={(e) => setNumberValueEdit(e.target.value)}
+                    />
+                </div>
+                {showError && (
+                    <p className="steps--error code--error">გთხოვთ, შეავსეთ ყველა ველი</p>
+                )}
+                <div className="d-flex justify-content-center">
+                    <button className="usercard--submitBtn" onClick={handleSubmitEdit}>
+                        რედაქტირება
                     </button>
                 </div>
             </Modal.Body>

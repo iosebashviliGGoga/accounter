@@ -16,3 +16,17 @@
     font-style: normal;
     font-display: swap;
   }
+
+  
+@font-face {
+  font-family: "BPG Mrgvlovani";
+  src: url("../fonts/BPGMrgvlovani.eot");
+  src: url("../fonts/BPGMrgvlovani.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/BPGMrgvlovani.woff2") format("woff2"),
+    url("../fonts/BPGMrgvlovani.woff") format("woff"),
+    url("../fonts/BPGMrgvlovani.ttf") format("truetype"),
+    url("../fonts/BPGMrgvlovani.svg#BPGMrgvlovani") format("svg");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}

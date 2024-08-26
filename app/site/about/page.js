@@ -8,24 +8,27 @@ export default function About() {
       </h1>
 
       <div className="content">
-      <img src="/assets/images/about us 1.png" alt="" className="about--right" />
+        <img src="/assets/images/about us 1.png" alt="" className="about--right" />
         <p>
-          The standard Lorem Ipsum passage, used since the 1500s
+          Accounter-ი მცირე მეწარმეებისთვის შექმნილი პლატფორმაა, რომელიც შემოსავლების სამსახურის ვებ-გვერდზე (RS.GE) ყოველთვიური სავალდებულო დეკლარაციების გაგზავნის პროცესის ავტომატიზაციას ემსახურება.
+
+
+
+        </p>
+        <p>
+        ჩვენ ვიცით, ისეთი ამოცანები, როგორებიცაა საბუღალტრო ჩანაწერების წარმოება, საგადასახადო კანონმდებლობასთან შესაბამისობაში ყოფნა  და სავალდებულო საგადასახადო დეკლარაციების  წარდგენა, განსაკუთრებულ ყურადღებას, დროსა და ენერგიას მოითხოვს. ვადების გამოტოვებამ ან არასწორი ინფორმაციის მიწოდებამ, შესაძლოა, ფინანსური ჯარიმები გამოიწვიოს. მცირე მეწარმეების სტრესს მუდმივად ცვალებადი რეგულაციები და მკაცრად განსაზღვრული ვადებიც ემატება.
+
+        </p>
+        <br></br>
+
+
+
+
+        <p>          Accounter-ის მიზანია, მცირე მეწარმეებისთვის იყოს არა მხოლოდ სერვისი, არამედ პარტნიორი და საუკეთესო დამხმარე, რომელიც დაზოგავს მათ დროს, დაიცავს ფინანსური ზარალისგან და  საშუალებას მისცემს, ფოკუსირდნენ ძირითად საქმიანობაზე.
         </p>
 
-        <p>
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-        </p>
-
-      <br></br>
-
-
-
-
-        <p>Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC</p>
-        
       </div>
-    
+
     </div>
 
 

@@ -350,7 +350,9 @@ main.about .container {
 }
 
 main.about .content {
-  font-size: 30px;
+  font-size: 20px;
+  font-family: "BPG Mrgvlovani";
+  line-height: 1.2;
 }
 
 .about--right {
@@ -1394,4 +1396,28 @@ input[type="number"] {
   height: calc(100vh - 107px - 40px - 40px - 48px - 75px - 75px);
   min-height: 310px;
   position: static;
+}
+
+
+.content li{
+  margin-bottom: 8px;
+}
+.content ul,.content ol{
+  padding-left: 20px;
+}
+.content strong,.content b{
+  font-weight: bold;
+}
+.terms .content{
+  font-family: "BPG Mrgvlovani";
+  line-height: 1.2;
+}
+
+.content a{
+  color: var(--main-orange) !important;
+}
+
+
+.usercard--submitBtn:disabled{
+  opacity: 0.4;
 }

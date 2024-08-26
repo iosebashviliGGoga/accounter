@@ -83,7 +83,7 @@ export default function Page() {
       setFillError(1)
     } else {
       try {
-        const response = await fetch('https://dev.proservice.ge/accounnter/api/login.php', {
+        const response = await fetch('https://dev.proservice.ge/accounnter/api/user_login.php', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

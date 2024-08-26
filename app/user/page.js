@@ -62,107 +62,114 @@ export default function Page() {
     const [years, setYears] = useState([]); // State to hold the dynamic years
 
     useEffect(() => {
+
         const handleFirst11Fetch = async () => {
-            const storedUser = JSON.parse(localStorage.getItem('user'));
+            //  const storedUser = JSON.parse(localStorage.getItem('user'));
             setLoading(true);
-            try {
-                const response = await fetch('https://dev.proservice.ge/accounnter/api/declaration.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        "user": {
-                            email: storedUser.email,
+            console.log(user, user.email)
+            if (user.email) {
+                console.log('in if')
+                try {
+                    const response = await fetch('https://dev.proservice.ge/accounnter/api/declaration.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
                         },
-                    })
-                });
+                        body: JSON.stringify({
+                            "user": {
+                                email: user.email,
+                            },
+                        })
+                    });
 
-                if (response.ok) {
-                    const data = await response.json();
-                    console.log(data);
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log(data);
 
-                    if (data.structure === true) {
-                        setStrucutre(true)
-                        const expensesArray = Object.values(data); // Convert the object to an array
-                        const expensesObject = {}; // Declare expensesObject
-                        const yearsSet = new Set(); // Declare yearsSet
-
-                        expensesArray.forEach(expense => {
-                            if (typeof expense === 'object' && expense.date) { // Ensure we only process valid expense objects
-                                const date = expense.date;
-                                const value = parseFloat(expense.value) || 0;
-                                const cashRegister = expense.cash_register || '0';
-                                const overhead = expense.overhead || '0';
-
-                                const [year, month] = date.split('-').map(Number);
-
-                                // If not already present, initialize the year in expensesObject
-                                if (!expensesObject[year]) {
-                                    expensesObject[year] = {};
-                                }
-
-                                // Set the data for the corresponding month
-                                expensesObject[year][month - 1] = {
-                                    value,
-                                    cash_register: cashRegister,
-                                    overhead
-                                };
-
-                                // Add the year to the Set
-                                yearsSet.add(year);
-                            }
-                        });
-
-                        setMonthlyExpenses(expensesObject);
-                        setYears([...yearsSet]); // Convert Set to array and set years
-                        const yearsArray = [...yearsSet];
-                        setCurrentYear(yearsArray[yearsArray.length - 1]);
-                    } else {
-                        const outputData = data?.declaration_data?.OutputData;
-                        if (outputData) {
-                            const parsedOutputData = JSON.parse(outputData);
-                            const expensesString = parsedOutputData.DynamicProperties?.['11TvisShemosavali'] || '';
-                            const expensesArray = expensesString.split(',').filter(expense => expense !== '');
-
+                        if (data.structure === true) {
+                            setStrucutre(true)
+                            const expensesArray = Object.values(data); // Convert the object to an array
                             const expensesObject = {}; // Declare expensesObject
                             const yearsSet = new Set(); // Declare yearsSet
 
                             expensesArray.forEach(expense => {
-                                const [date, amount] = expense.split('-');
-                                const [day, month, year] = date.split('/').map(Number); // Manually parse the date
-                                yearsSet.add(year); // Add year to the Set
+                                if (typeof expense === 'object' && expense.date) { // Ensure we only process valid expense objects
+                                    const date = expense.date;
+                                    const value = parseFloat(expense.value) || 0;
+                                    const cashRegister = expense.cash_register || '0';
+                                    const overhead = expense.overhead || '0';
 
-                                if (!expensesObject[year]) {
-                                    expensesObject[year] = {};
+                                    const [year, month] = date.split('-').map(Number);
+
+                                    // If not already present, initialize the year in expensesObject
+                                    if (!expensesObject[year]) {
+                                        expensesObject[year] = {};
+                                    }
+
+                                    // Set the data for the corresponding month
+                                    expensesObject[year][month - 1] = {
+                                        value,
+                                        cash_register: cashRegister,
+                                        overhead
+                                    };
+
+                                    // Add the year to the Set
+                                    yearsSet.add(year);
                                 }
-
-                                // Months are 0-indexed in JavaScript, so adjust accordingly
-                                expensesObject[year][month - 1] = parseFloat(amount) || 0;
                             });
 
                             setMonthlyExpenses(expensesObject);
                             setYears([...yearsSet]); // Convert Set to array and set years
                             const yearsArray = [...yearsSet];
                             setCurrentYear(yearsArray[yearsArray.length - 1]);
+                        } else {
+                            const outputData = data?.declaration_data?.OutputData;
+                            if (outputData) {
+                                const parsedOutputData = JSON.parse(outputData);
+                                const expensesString = parsedOutputData.DynamicProperties?.['11TvisShemosavali'] || '';
+                                const expensesArray = expensesString.split(',').filter(expense => expense !== '');
+
+                                const expensesObject = {}; // Declare expensesObject
+                                const yearsSet = new Set(); // Declare yearsSet
+
+                                expensesArray.forEach(expense => {
+                                    const [date, amount] = expense.split('-');
+                                    const [day, month, year] = date.split('/').map(Number); // Manually parse the date
+                                    yearsSet.add(year); // Add year to the Set
+
+                                    if (!expensesObject[year]) {
+                                        expensesObject[year] = {};
+                                    }
+
+                                    // Months are 0-indexed in JavaScript, so adjust accordingly
+                                    expensesObject[year][month - 1] = parseFloat(amount) || 0;
+                                });
+
+                                setMonthlyExpenses(expensesObject);
+                                setYears([...yearsSet]); // Convert Set to array and set years
+                                const yearsArray = [...yearsSet];
+                                setCurrentYear(yearsArray[yearsArray.length - 1]);
+                            }
                         }
                     }
+
+                    else {
+                        console.error('Error:', response.statusText);
+                        alert('Failed to fetch data. Please try again.');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again later.');
+                } finally {
+                    setLoading(false);
                 }
 
-                else {
-                    console.error('Error:', response.statusText);
-                    alert('Failed to fetch data. Please try again.');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('An error occurred. Please try again later.');
-            } finally {
-                setLoading(false);
             }
-        };
 
+        };
         handleFirst11Fetch();
-    }, []);
+
+    }, [user]);
 
     const handleYearChange = (year) => {
         setCurrentYear(year);
@@ -206,12 +213,12 @@ export default function Page() {
         const formattedDate = currentDate.toISOString().slice(0, 10); // Format as YYYY-MM-DD
         setDateValue(formattedDate);
         populateTable()
-    }, []);
-
+    }, [user]);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const handleSubmit = async () => {
-        const storedUser = JSON.parse(localStorage.getItem('user'));
+        // const storedUser = JSON.parse(localStorage.getItem('user'));
         // Check if any of the inputs are empty
-        if (!companyName || !numberValue) {
+        if (!companyName || !numberValue || !user.email) {
             setShowError(true);
             return;
         }
@@ -228,10 +235,10 @@ export default function Page() {
                 gel_amount: numberValue,
             },
             user: {
-                email: storedUser.email
+                email: user.email
             }
         };
-
+        setIsSubmitting(true);
         try {
             // Send the POST request
             const response = await fetch('https://dev.proservice.ge/accounnter/api/user_declaration.php', {
@@ -243,6 +250,7 @@ export default function Page() {
             });
 
             if (response.ok) {
+                setIsSubmitting(false);
                 // Handle successful submission
                 //  alert('Data submitted successfully');
                 const respo = await response.json();  // Add await here
@@ -264,9 +272,9 @@ export default function Page() {
     };
 
     const handleSubmitEdit = async () => {
-        const storedUser = JSON.parse(localStorage.getItem('user'));
+        // const storedUser = JSON.parse(localStorage.getItem('user'));
         // Check if any of the inputs are empty
-        if (!companyNameEdit || !numberValueEdit) {
+        if (!companyNameEdit || !numberValueEdit || !user.email) {
             setShowError(true);
             return;
         }
@@ -284,7 +292,7 @@ export default function Page() {
                 id: IDEdit
             },
             user: {
-                email: storedUser.email
+                email: user.email
             }
         };
 
@@ -322,12 +330,16 @@ export default function Page() {
 
 
     const populateTable = () => {
-        const storedUser = JSON.parse(localStorage.getItem('user'));
+        //   const storedUser = JSON.parse(localStorage.getItem('user'));
+
+        if (!user.email) {
+            return
+        }
         const data = {
 
             action: "index",
             user: {
-                email: storedUser.email
+                email: user.email
             }
         };
 
@@ -389,7 +401,7 @@ export default function Page() {
         setShow2(false)
         setCurrentStep(1)
 
-        const storedUser = JSON.parse(localStorage.getItem('user'));
+        //  const storedUser = JSON.parse(localStorage.getItem('user'));
 
 
         try {
@@ -402,7 +414,7 @@ export default function Page() {
                     // email:"goga123s@gmail.com",
                     // password:"goga123",
                     user: {
-                        email: storedUser.email,
+                        email: user.email,
                     },
                     action: "completeDeclaration"
                 })
@@ -448,9 +460,16 @@ export default function Page() {
     }
 
     const handleRSsms = async (e) => {
-        const storedUser = JSON.parse(localStorage.getItem('user'));
+        //  const storedUser = JSON.parse(localStorage.getItem('user'));
         const smsValue = document.querySelector('#smsV').value
-
+        if (smsValue == '') {
+            setLoading(0)
+            setCurrentStep(2)
+            setSMSError(1)
+            //   setFillError(0)
+            setRsSMSerror('გთხოვთ შეიყვანეთ სმს კოდი')
+            return
+        }
         setCurrentStep(1)
         try {
             const response = await fetch('https://dev.proservice.ge/accounnter/api/sms_verify.php', {
@@ -460,7 +479,7 @@ export default function Page() {
                 },
                 body: JSON.stringify({
                     "user": {
-                        email: storedUser.email,
+                        email: user.email,
                     },
                     "itemData": {
                         "Name": "UsersCode",
@@ -492,9 +511,9 @@ export default function Page() {
 
                 } else {
                     setLoading(0)
-                    setCurrentStep(4)
+                    setCurrentStep(2)
                     setSMSError(1)
-                    setFillError(0)
+                    //   setFillError(0)
                     setRsSMSerror(data.message)
                 }
 
@@ -583,19 +602,15 @@ export default function Page() {
                             </tr> */}
 
                                     <tr>
-                                        <td>კომპანია 45</td>
-                                        <td>18.09.2023</td>
-                                        {/* <td>20</td>
-                                <td>GEL</td> */}
-                                        <td>20</td>
-                                        {/* <td><img src="/assets/images/redaction.svg" alt="" /></td>
-                                <td><img src="/assets/images/deletion.svg" alt="" /></td> */}
-                                    </tr>
-                                    <tr>
-                                        <td>კომპანია 45</td>
+                                        {/* <td>კომპანია 45</td>
                                         <td>18.09.2023</td>
                                         <td>20</td>
+                                        <td>GEL</td>
+                                        <td>20</td>
+                                        <td><img src="/assets/images/redaction.svg" alt="" /></td>
+                                        <td><img src="/assets/images/deletion.svg" alt="" /></td> */}
                                     </tr>
+
                                 </tbody>
                             </table>
 
@@ -747,14 +762,14 @@ export default function Page() {
                                         cash_register: '0',
                                         overhead: '0'
                                     };
-
+                                    console.log(expenseData)
                                     return (
                                         <tr key={index}>
                                             <td>{month}</td>
                                             <td>{expenseData.value}</td>
                                             <td>{expenseData.cash_register}</td>
                                             <td>{expenseData.overhead}</td>
-                                            <td>{parseFloat(expenseData.value) + parseFloat(expenseData.cash_register)}</td>
+                                            <td>{(parseFloat(expenseData.value) + parseFloat(expenseData.cash_register)).toFixed(2)}</td>
                                         </tr>
                                     );
                                 })
@@ -851,7 +866,7 @@ export default function Page() {
                 {/* Input for Date (Disabled) */}
                 <div className="form-group">
                     <label htmlFor="dateInput">თარიღი</label>
-                    <input type="date" id="dateInputEdit" className="form-control" disabled value={companyTimeEdit}/>
+                    <input type="date" id="dateInputEdit" className="form-control" disabled value={companyTimeEdit} />
                 </div>
                 {/* Input for Company Name */}
                 <div className="form-group">
@@ -880,7 +895,11 @@ export default function Page() {
                     <p className="steps--error code--error">გთხოვთ, შეავსეთ ყველა ველი</p>
                 )}
                 <div className="d-flex justify-content-center">
-                    <button className="usercard--submitBtn" onClick={handleSubmitEdit}>
+                    <button
+                        className="usercard--submitBtn"
+                        onClick={handleSubmitEdit}
+                        disabled={isSubmitting}  // Disable the button while submitting
+                    >
                         რედაქტირება
                     </button>
                 </div>
